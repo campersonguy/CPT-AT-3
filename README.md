@@ -1,6 +1,6 @@
 # Cameron Guglielmino - CPT AT 3 Documentation
 
-# **Week 1 - Project Description** ##
+## **Week 1 - Project Description** ##
 I want to create a platform for users to be able to read crime stories. To accomplish this, users will sign up to the platform, and they will be able to read stories published by other users. Users will be able to like other crime stories, and the most popular/liked stories will appear on the front page.
 
 Users will also be able to customise their profile with a username, profile picture and about me. They can also follow other users, and they will receive notifications when that user publishes a story. Users can also set their password.
@@ -17,7 +17,7 @@ Users will also be able to customise their profile with a username, profile pict
 - The system should be able to store info of each different user (e.g username, password, id)
 
 
-# **Week 2 - Initial Website Design**
+## **Week 2 - Initial Website Design**
 
 **Design Table**:
 | Aspect of Design | Description |
@@ -29,3 +29,8 @@ Users will also be able to customise their profile with a username, profile pict
 | Profile Settings Page | This is the page where the user can edit their profile. On the left will be a sidebar allowing the user to view different pages of their settings (Account Details/Settings) and allow them to log out of their account. On the Account Details page, the user can change their username, password and email, however changing the password and email will require the user to input their password and the email will send the new email address a verification code. The user will also be able to see how many crimes they've submitted/liked, how many followers they have, and how many other users they're following. Hovering over the following stat will show a small list of the profile pictures of people they're following. |
 | Colour Palette | Primary: Gray, Secondary: White, Accent: Navy Blue |
 | Other Pages | Search Crimes, Submit Crimes, Leaderboard, Settings, Login/Signup Page (not included in prototype sketch) |
+
+**Images of Sketch**
+
+![image](C:\Unity\CPT AT 3\CPT-AT-3\IMG_1867.jpeg)
+![image](C:\Unity\CPT AT 3\CPT-AT-3\IMG_1868.jpeg)
