@@ -42,3 +42,15 @@ Users will also be able to customise their profile with a username, profile pict
 **Top Crimes Page & Profile Settings Page**
 
 ![image](IMG_1868.jpeg)
+
+
+## **Week 3 - Alternative Website Design**
+
+### **Design Table**
+
+| Aspect of Design | Description |
+| -------- | -------- |
+
+### **Images of Sketch**
+
+(both unfinised for now)
