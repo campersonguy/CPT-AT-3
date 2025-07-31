@@ -21,6 +21,7 @@ Users will also be able to customise their profile with a username, profile pict
 
 # **Design Table**:
 | Aspect of Design | Description |
-| ---------------- | ---------------- |
+| -------- | -------- |
 | Landing Page | The landing page should display the logo, and give the user the option to either log in or sign out. When signing up or logging in, the user has the option to enable 'Keep Me Signed In', where this page is skipped and the user is automatically logged in. This option will automatically disable if the user does not log in for 14 days.
+| Top Crimes Page | 
 | Colour Palette | Primary - Gray, Secondary - White, Accent - Navy Blue |
