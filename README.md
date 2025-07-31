@@ -5,12 +5,14 @@ I want to create a platform for users to be able to read crime stories. To accom
 
 Users will also be able to customise their profile with a username, profile picture and about me. They can also follow other users, and they will receive notifications when that user publishes a story. Users can also set their password.
 
-### **Functional Requirements:**
+### **Functional Requirements**
+
 - Users should be able to sign up to the site and log in with the same account at a later date.
 - Users should be able to customise their profile (e.g profile picture, username, password)
 - Users should be able to view and follow other users.
 
-### **Non-Functional Requirements:**
+### **Non-Functional Requirements**
+
 - The app should be able to load webpages in under 2 seconds.
 - The app should be easy to navigate for new users.
 - The system should be able to support at least 1000 different users.
@@ -28,13 +30,15 @@ Users will also be able to customise their profile with a username, profile pict
 | Top Crimes Page | This is the page the user will be directed to upon being logged in.  On the left, there will be a display of the most liked crime posted in the last week (titled 'This Week's Top Crime'). On the right, there will be a display of 'The Latest Crimes', where the user can sort the crimes by most recent, most liked, and most viewed. This display will show the first 100 crimes ordered by the user's preference, and disply the number of likes, favourites and views on each one. The user should be able to scroll through them. Clicking on one of them will take the user to an individual page so they can read the crime.|
 | Individual Crime Page | This is the page where the user will be able to read an individual crime. On the left will be a display of the name of the crime, the user(s) who posted it, and an option to favourite/like/dislike/share the crime, which will also display the number of each as well as the number of views. Underneath that, there will be a comment section where users can read and post comments about the crime, sorted by number of likes and displaying the username of the commenter as well as the date and time of when it was posted. On the right will be the posted crime, with the option to scroll through it if the crime is long enough. |
 | Profile Settings Page | This is the page where the user can edit their profile. On the left will be a sidebar allowing the user to view different pages of their settings (Account Details/Settings) and allow them to log out of their account. On the Account Details page, the user can change their username, password and email, however changing the password and email will require the user to input their password and the email will send the new email address a verification code. The user will also be able to see how many crimes they've submitted/liked, how many followers they have, and how many other users they're following. Hovering over the following stat will show a small list of the profile pictures of people they're following. |
-| Colour Palette | Primary: Gray, Secondary: White, Accent: Navy Blue |
+| Colour Palette | Primary: Gray, Secondary: White, Accent: Navy Blue. The accent colour will likely be used on buttons to add contrast. |
 | Other Pages | Search Crimes, Submit Crimes, Leaderboard, Settings, Login/Signup Page (not included in prototype sketch) |
 
 ### **Images of Sketch**
 
 **Landing Page & Individual Crime Page**
+
 ![image](IMG_1867.jpeg)
 
 **Top Crimes Page & Profile Settings Page**
+
 ![image](IMG_1868.jpeg)
