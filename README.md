@@ -1,6 +1,6 @@
 # Cameron Guglielmino - CPT AT 3 Documentation
 
-## **Week 1 - Project Description** ##
+## **Week 1 - Project Definition and Requirements** ##
 I want to create a platform for users to be able to read crime stories. To accomplish this, users will sign up to the platform, and they will be able to read stories published by other users. Users will be able to like other crime stories, and the most popular/liked stories will appear on the front page.
 
 Users will also be able to customise their profile with a username, profile picture and about me. They can also follow other users, and they will receive notifications when that user publishes a story. Users can also set their password.
@@ -19,7 +19,7 @@ Users will also be able to customise their profile with a username, profile pict
 - The system should be able to store info of each different user (e.g username, password, id)
 
 
-## **Week 2 - Initial Website Design**
+## **Week 2 - Basic Design of UI, Hierachy and Interactive Elements**
 
 ### **Design Table**:
 
@@ -44,7 +44,7 @@ Users will also be able to customise their profile with a username, profile pict
 ![image](IMG_1868.jpeg)
 
 
-## **Week 3 - Alternative Website Design**
+## **Week 3 - Alternative Design - Playing with Possibilities**
 
 ### **Design Table**
 
