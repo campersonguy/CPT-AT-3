@@ -32,5 +32,5 @@ Users will also be able to customise their profile with a username, profile pict
 
 **Images of Sketch**
 
-![image](C:\Unity\CPT AT 3\CPT-AT-3\IMG_1867.jpeg)
-![image](C:\Unity\CPT AT 3\CPT-AT-3\IMG_1868.jpeg)
+![image](IMG_1867.jpeg)
+![image](IMG_1868.jpeg)
