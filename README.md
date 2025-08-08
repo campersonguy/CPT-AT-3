@@ -59,6 +59,16 @@ Users will also be able to customise their profile with a username, profile pict
 
 ### **Images of Design (Canva)**
 
-![image](ss_1.jpeg)
-![image](ss_2.jpeg)
-![image](ss_3.jpeg)
+**Landing Page**
+
+![image](ss_1.png)
+
+**Top Crimes Page**
+
+![image](ss_2.png)
+
+**Submit Crimes Page**
+
+![image](ss_3.png)
+
+## **Week 4 - TBD**
