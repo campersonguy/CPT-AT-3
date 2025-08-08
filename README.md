@@ -46,11 +46,19 @@ Users will also be able to customise their profile with a username, profile pict
 
 ## **Week 3 - Alternative Design - Playing with Possibilities**
 
-### **Design Table**
+### **Design Table**:
 
 | Aspect of Design | Description |
 | -------- | -------- |
+| Landing Page | The landing page is similar to the original design. I wanted to add some text to prevent it looking very empty, as before it only had a large image of the logo, but functionality-wise it is the same. |
+| Navigation Bar | The navigation bar has been moved from the top to the left side of the screen. I believe the navigation bar is more fitting on the top rather than the side as there is much more blank space when it is on the side, leading to it looking more empty. To fill some of the empty space, I added an image of the confessions.com logo. |
+| Top Crimes Page | This page is the most similar to previous designs. The main difference is the navigation bar being moved and the colours/typography, so the main functions of the page are the same as before. The 'click to view more' button uses the accent colour to make it stand out. |
+| Submit Crimes Page | The submit crimes page needed to have a lot of features to add to one story so the entire page wouldn't be taken up by a box to type in. The page has options to write a story, add a list of names, add the date, write a description, attach images and set to different modes of viewing (Public, Private). It also has an option to save your progress and finish later. |
+| Colour Palette | Primary: Blue, Secondary: Dark Indigo, Accent: Dark Blue. Since the last prototype of this website used a mainly grey and black colour scheme, I wanted to change the colour so the website wasn't only monochrome colours. The background colour of each page is a blue gradient. |
+| Typography | The font used for majority of the text is Cooper Hewitt. |
 
-### **Images of Sketch**
+### **Images of Design (Canva)**
 
-(both unfinised for now)
+![image](ss_1.jpeg)
+![image](ss_2.jpeg)
+![image](ss_3.jpeg)
