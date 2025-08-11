@@ -35,13 +35,21 @@ Users will also be able to customise their profile with a username, profile pict
 
 ### **Images of Sketch**
 
-**Landing Page & Individual Crime Page**
+**Landing Page**
 
-![image](IMG_1867.jpeg)
+![image](drawing1.jpeg)
 
-**Top Crimes Page & Profile Settings Page**
+**Individual Crime Page**
 
-![image](IMG_1868.jpeg)
+![image](drawing2.jpeg)
+
+**Top Crimes Page**
+
+![image](drawing3.jpeg)
+
+**Profile Settings Page**
+
+![image](drawing4.jpeg)
 
 
 ## **Week 3 - Alternative Design - Playing with Possibilities**
@@ -71,4 +79,4 @@ Users will also be able to customise their profile with a username, profile pict
 
 ![image](ss_3.png)
 
-## **Week 4 - TBD**
+## **Week 4 - Designing algorithms - Functional Steps for User Focused Design**
