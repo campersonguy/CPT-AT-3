@@ -95,3 +95,47 @@ I will use the design created on Figma last year as a template for a new design 
 
 
 ## **Week 4 - Designing algorithms - Functional Steps for User Focused Design**
+
+### **Basic Algorithm - Creating an Account - Pseudocode**
+
+    1. Declare variables: username, password, confirmpassword
+    2. Prompt user to enter a username and password
+    3. Get username and password
+    4. Display username and password
+    5. IF username is taken, THEN
+        5.1. DO
+            5.1.1. Display error message "Username is taken"
+            5.1.2. Prompt user to enter new username
+            5.1.3. Get new username
+        5.2. WHILE username is taken
+    6. IF password is less than 8 characters, THEN
+        6.1. DO
+            6.1.1. Display error message "Password is less than 8 characters"
+            6.1.2. Prompt user to enter new password
+            6.1.3. Get new password
+        6.2. WHILE password is less than 8 characters
+    7. IF password does not contain a number
+        7.1. DO
+            7.1.1. Display error message "Password does not contain a number"
+            7.1.2. Prompt user to enter new password
+            7.1.3. Get new password
+        7.2. WHILE password does not contain a number
+    8. IF password does not contain a capital letter
+        8.1. DO
+            8.1.1. Display error message "Password does not contain a capital letter"
+            8.1.2. Prompt user to enter new password
+            8.1.3. Get new password
+        8.2. WHILE password does not contain a capital letter
+    9. ENDIF
+    10. Prompt user to enter a confirmpassword
+    11. Get confirmpassword
+    12. Display confirmpassword
+    13. IF confirmpassword does not equal password, THEN
+        13.1. DO
+            13.1.1. Display error message "Passwords do not match"
+            13.1.2. Propmt user to enter new confirmpassword
+            13.1.3. Get confirmpassword
+        13.2. WHILE confirmpassword does not equal password
+    13. ENDIF
+    14. Create account with username and password
+    15. Log in user to platform
