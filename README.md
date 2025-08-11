@@ -44,19 +44,19 @@ I will use the design created on Figma last year as a template for a new design 
 
 **Landing Page**
 
-![image](drawing1.jpeg)
+![landingpage](drawing1.jpeg)
 
 **Individual Crime Page**
 
-![image](drawing2.jpeg)
+![individualcrime](drawing2.jpeg)
 
 **Top Crimes Page**
 
-![image](drawing3.jpeg)
+![topcrimes](drawing3.jpeg)
 
 **Profile Settings Page**
 
-![image](drawing4.jpeg)
+![profilesettings](drawing4.jpeg)
 
 ### **Client Feedback**
 
@@ -82,15 +82,15 @@ I will use the design created on Figma last year as a template for a new design 
 
 **Landing Page**
 
-![image](ss_1.png)
+![landingpage](ss_1.png)
 
 **Top Crimes Page**
 
-![image](ss_2.png)
+![topcrimes](ss_2.png)
 
 **Submit Crimes Page**
 
-![image](ss_3.png)
+![submitcrimes](ss_3.png)
 
 ### **Client Feedback**
 
@@ -144,3 +144,7 @@ I will use the design created on Figma last year as a template for a new design 
     13. ENDIF
     14. Create account with username and password
     15. Log in user to platform
+
+### **Flowchart Image**
+
+![flowchart](flowchart.png)
