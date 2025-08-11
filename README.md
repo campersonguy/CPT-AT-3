@@ -3,7 +3,9 @@
 ## **Week 1 - Project Definition and Requirements** ##
 I want to create a platform for users to be able to read crime stories. To accomplish this, users will sign up to the platform, and they will be able to read stories published by other users. Users will be able to like other crime stories, and the most popular/liked stories will appear on the front page.
 
-Users will also be able to customise their profile with a username, profile picture and about me. They can also follow other users, and they will receive notifications when that user publishes a story. Users can also set their password.
+Users will also be able to customise their profile with a username, profile picture and about me. They can also follow other users, and they will receive notifications when that user publishes a story. Users can also set their password to secure their account and prevent others from logging into it.
+
+I will use the design created on Figma last year as a template for a new design for the website.
 
 ### **Functional Requirements**
 
@@ -51,6 +53,12 @@ Users will also be able to customise their profile with a username, profile pict
 
 ![image](drawing4.jpeg)
 
+### **Client Feedback**
+
+- Landing page is very empty with a lot of blank space, needs more interactions or text as the only features on there are login/signup buttons
+- Annotations are not very detailed, more detail has been added to the Design Table
+- No colour scheme or typography design choices present, need to add those more visually in the Alternative Design as it is difficult to visualise typography/colours on a drawing
+
 
 ## **Week 3 - Alternative Design - Playing with Possibilities**
 
@@ -63,7 +71,7 @@ Users will also be able to customise their profile with a username, profile pict
 | Top Crimes Page | This page is the most similar to previous designs. The main difference is the navigation bar being moved and the colours/typography, so the main functions of the page are the same as before. The 'click to view more' button uses the accent colour to make it stand out. |
 | Submit Crimes Page | The submit crimes page needed to have a lot of features to add to one story so the entire page wouldn't be taken up by a box to type in. The page has options to write a story, add a list of names, add the date, write a description, attach images and set to different modes of viewing (Public, Private). It also has an option to save your progress and finish later. |
 | Colour Palette | Primary: Blue, Secondary: Dark Indigo, Accent: Dark Blue. Since the last prototype of this website used a mainly grey and black colour scheme, I wanted to change the colour so the website wasn't only monochrome colours. The background colour of each page is a blue gradient. |
-| Typography | The font used for majority of the text is Cooper Hewitt. |
+| Typography | The font used for majority of the text is Cooper Hewitt. I didn't have a specific font design in mind for this, so I used a less serious font than before since the colour scheme for this design isn't as intense (mainly blue compared to mainly grey and black). |
 
 ### **Images of Design (Canva)**
 
@@ -78,5 +86,12 @@ Users will also be able to customise their profile with a username, profile pict
 **Submit Crimes Page**
 
 ![image](ss_3.png)
+
+### **Client Feedback**
+
+- No annotations present on design images, will be added on Design Table instead
+- Landing page is less empty, but could still use more detail in final design
+- Designs are very similar to the original from last week, with some minor design changes and improvements such as the navigation bar moved to the side
+
 
 ## **Week 4 - Designing algorithms - Functional Steps for User Focused Design**
