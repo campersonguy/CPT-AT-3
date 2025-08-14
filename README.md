@@ -103,62 +103,56 @@ I will use the design created on Figma last year as a template for a new design 
 
 ### **Basic Algorithm - Creating an Account - Pseudocode**
 
-1. Declare variables: `username`, `password`, `confirmpassword`, `email`, `verificationcode`, `matchverificationcode`
-2. Prompt user to enter a `username`, `password` and `email`
-3. Get `username`, `password` and `email`
-4. Display `username`, `password` and `email`
-5. IF `username` is taken, THEN
-- 5.1. DO
-    - 5.1.1. Display error message "Username is taken"
-    - 5.1.2. Prompt user to enter new `username`
-    - 5.1.3. Get new `username`
-- 5.2. WHILE `username` is taken
-6. IF `email` is taken, THEN
-- 6.1. DO
-    - 6.1.1. Display error message "Email is taken"
-    - 6.1.2. Prompt user to enter a new `email`
-    - 6.1.3. Get new `email`
-- 6.2. WHILE `email` is taken
-7. IF `password` is less than 8 characters, THEN
-- 7.1. DO
-    - 7.1.1. Display error message "Password is less than 8 characters"
-    - 7.1.2. Prompt user to enter new `password`
-    - 7.1.3. Get new `password`
-- 7.2. WHILE `password` is less than 8 characters
-8. IF `password` does not contain a number
-- 8.1. DO
-    - 8.1.1. Display error message "Password does not contain a number"
-    - 8.1.2. Prompt user to enter new `password`
-    - 8.1.3. Get new `password`
-- 8.2. WHILE `password` does not contain a number
-9. IF `password` does not contain a capital letter
-- 9.1. DO
-    - 9.1.1. Display error message "Password does not contain a capital letter"
-    - 9.1.2. Prompt user to enter new `password`
-    - 9.1.3. Get new `password`
-- 9.2. WHILE `password` does not contain a capital letter
-10. ENDIF
-11. Prompt user to enter a `confirmpassword`
-12. Get `confirmpassword`
-13. Display `confirmpassword`
-14. IF `confirmpassword` does not match `password`, THEN
-- 14.1. DO
-    - 14.1.1. Display error message "Passwords do not match"
-    - 14.1.2. Prompt user to enter new `confirmpassword`
-    - 14.1.3. Get `confirmpassword`
-- 14.2. WHILE `confirmpassword` does not equal `password`
-15. ENDIF
-16. Set `verificationcode` to random 6-digit integer
-17. Send `verificationcode` to email
-18. Prompt user to input `matchverificationcode`
-19. IF `matchverificationcode` does not match `verificationcode`, THEN
-- 19.1. DO
-    - 19.1.1. Display error message "Verification codes do not match"
-    - 19.1.2. Prompt user to re-enter `verificationcode`
-    - 19.1.3. Get `verificationcode`
-- 19.2. WHILE `matchverificationcode` does not match `verificationcode`
-20. Create account with `username`, `password` and `email` data
-21. Log in user to platform
+    1. Declare variables: username, password, confirmpassword, email, verificationcode, matchverificationcode
+    2. Prompt user to enter a username, password and email
+    3. Get username, password and email
+    4. Display username, password and email
+    5. IF username is taken, THEN
+        5.1. DO
+            5.1.1. Display error message "Username is taken"
+            5.1.2. Prompt user to enter new username
+            5.1.3. Get new username
+        5.2. WHILE username is taken
+    6. IF password is less than 8 characters, THEN
+        6.1. DO
+            6.1.1. Display error message "Password is less than 8 characters"
+            6.1.2. Prompt user to enter new password
+            6.1.3. Get new password
+        6.2. WHILE password is less than 8 characters
+    7. IF password does not contain a number
+        7.1. DO
+            7.1.1. Display error message "Password does not contain a number"
+            7.1.2. Prompt user to enter new password
+            7.1.3. Get new password
+        7.2. WHILE password does not contain a number
+    8. IF password does not contain a capital letter
+        8.1. DO
+            8.1.1. Display error message "Password does not contain a capital letter"
+            8.1.2. Prompt user to enter new password
+            8.1.3. Get new password
+        8.2. WHILE password does not contain a capital letter
+    9. ENDIF
+    10. Prompt user to enter a confirmpassword
+    11. Get confirmpassword
+    12. Display confirmpassword
+    13. IF confirmpassword does not match password, THEN
+        13.1. DO
+            13.1.1. Display error message "Passwords do not match"
+            13.1.2. Prompt user to enter new confirmpassword
+            13.1.3. Get confirmpassword
+        13.2. WHILE confirmpassword does not equal password
+    13. ENDIF
+    14. Set verificationcode to random 6-digit integer
+    15. Send verificationcode to email
+    16. Prompt user to input matchverificationcode
+    17. IF matchverificationcode does not match verificationcode, THEN
+        17.1. DO
+            17.1.1. Display error message "Verification codes do not match"
+            17.1.2. Prompt user to re-enter verificationcode
+            17.1.3. Get verificationcode
+        17.2. WHILE matchverificationcode does not match verificationcode
+    18. Create account with username, password and email data
+    19. Log in user to platform
 
 ### **Flowchart Image**
 
@@ -170,7 +164,7 @@ I will use the design created on Figma last year as a template for a new design 
 
 **Test Case Name:** Creating an account
 
-**Preconditions:** user is not logged into an account
+**Preconditions:** User is not logged into an account
 
 **Test Steps:**
 1. User will enter a username and password.
