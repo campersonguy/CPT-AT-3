@@ -103,10 +103,10 @@ I will use the design created on Figma last year as a template for a new design 
 
 ### **Basic Algorithm - Creating an Account - Pseudocode**
 
-    1. Declare variables: username, password, confirmpassword
-    2. Prompt user to enter a username and password
-    3. Get username and password
-    4. Display username and password
+    1. Declare variables: username, password, confirmpassword, email, verificationcode, matchverificationcode
+    2. Prompt user to enter a username, password and email
+    3. Get username, password and email
+    4. Display username, password and email
     5. IF username is taken, THEN
         5.1. DO
             5.1.1. Display error message "Username is taken"
@@ -138,18 +138,29 @@ I will use the design created on Figma last year as a template for a new design 
     13. IF confirmpassword does not match password, THEN
         13.1. DO
             13.1.1. Display error message "Passwords do not match"
-            13.1.2. Propmt user to enter new confirmpassword
+            13.1.2. Prompt user to enter new confirmpassword
             13.1.3. Get confirmpassword
         13.2. WHILE confirmpassword does not equal password
     13. ENDIF
-    14. Create account with username and password
-    15. Log in user to platform
+    14. Set verificationcode to random 6-digit integer
+    15. Send verificationcode to email
+    16. Prompt user to input matchverificationcode
+    17. IF matchverificationcode does not match verificationcode, THEN
+        17.1. DO
+            17.1.1. Display error message "Verification codes do not match"
+            17.1.2. Prompt user to re-enter verificationcode
+            17.1.3. Get verificationcode
+        17.2. WHILE matchverificationcode does not match verificationcode
+    18. Create account with username, password and email data
+    19. Log in user to platform
 
 ### **Flowchart Image**
 
 ![flowchart](flowchart.png)
 
 ### **Test Cases**
+
+**Test Case ID:** TC001
 
 **Test Case Name:** Creating an account
 
@@ -162,9 +173,33 @@ I will use the design created on Figma last year as a template for a new design 
 4. System will check for if the username meets some conditions (at least 8 characters, must have a number, must have a capital letter). If not, the user will be prompted to change their password until it is valid.
 5. System will prompt the user to retype their password in 'Confirm password'.
 6. System will check for if the confirm password matches the original. If not, the user will be prompted to retype it until they match.
-7. System will create the account with the correct username and password data.
-8. User will be logged into the account.
+7. System will send a randomly generated 6-digit verification code to the inputted email.
+8. System will prompt the user to input the same 6-digit code.
+9. System will check the verification codes match. If not, the user will be prompted to retype it until they match.
+10. System will create the account with the correct username, password and email data.
+11. User will be logged into the account.
 
 **Expected Result:** Account is created with correct data and user is logged in with the account.
 
-**Priority: High**
+**Priority:** Very High
+
+
+**Test Case ID:** TC002
+
+**Test Case Name:** Resetting account password
+
+**Preconditions:** User already has an account
+
+**Test Steps:**
+1. User will click the 'Reset password' button.
+2. User will input their current username and email address.
+3. System will send a randomly generated 6-digit verification code to the inputted email.
+4. System will prompt the user to input the same 6-digit code.
+5. System will check the verification codes match. If not, the user will be prompted to retype it until they match.
+6. User will be prompted to enter a new password.
+7. System will update the password through the account data.
+8. User will be logged into the account.
+
+**Expected Result:** Account data is correctly updated and user is logged in with the account.
+
+**Priority:** High
