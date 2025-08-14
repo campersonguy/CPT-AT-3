@@ -135,7 +135,7 @@ I will use the design created on Figma last year as a template for a new design 
     10. Prompt user to enter a confirmpassword
     11. Get confirmpassword
     12. Display confirmpassword
-    13. IF confirmpassword does not equal password, THEN
+    13. IF confirmpassword does not match password, THEN
         13.1. DO
             13.1.1. Display error message "Passwords do not match"
             13.1.2. Propmt user to enter new confirmpassword
@@ -148,3 +148,23 @@ I will use the design created on Figma last year as a template for a new design 
 ### **Flowchart Image**
 
 ![flowchart](flowchart.png)
+
+### **Test Cases**
+
+**Test Case Name:** Creating an account
+
+**Preconditions:** None
+
+**Test Steps:**
+1. User will enter a username and password.
+2. User will click the 'Sign Up' button.
+3. System will check for if the username matches with another existing account. If so, the user will be prompted to change their username until it is valid.
+4. System will check for if the username meets some conditions (at least 8 characters, must have a number, must have a capital letter). If not, the user will be prompted to change their password until it is valid.
+5. System will prompt the user to retype their password in 'Confirm password'.
+6. System will check for if the confirm password matches the original. If not, the user will be prompted to retype it until they match.
+7. System will create the account with the correct username and password data.
+8. User will be logged into the account.
+
+**Expected Result:** Account is created with correct data and user is logged in with the account.
+
+**Priority: High**
