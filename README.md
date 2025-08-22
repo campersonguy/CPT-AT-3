@@ -31,7 +31,7 @@ I will use the design created on Figma last year as a template for a new design 
 ### **Design Table**:
 
 | Aspect of Design | Description |
-| -------- | -------- |
+| ---------------- | ----------- |
 | Landing Page | The landing page should display the logo, and give the user the option to either log in or sign out. When signing up or logging in, the user has the option to enable 'Keep Me Signed In', where this page is skipped and the user is automatically logged in. This option will automatically disable if the user does not log in for 14 days or logs out manually. |
 | Navigation Bar | This bar will display in every page except for the landing page. The bar will have options to take users directly to the Top Crimes, Search Crimes, Submit Crimes and Leaderboard pages, as well as an option to edit their account and settings through a dropdown menu attached to an icon in the top-right corner displaying the user's profile picture. |
 | Top Crimes Page | This is the page the user will be directed to upon being logged in.  On the left, there will be a display of the most liked crime posted in the last week (titled 'This Week's Top Crime'). On the right, there will be a display of 'The Latest Crimes', where the user can sort the crimes by most recent, most liked, and most viewed. This display will show the first 100 crimes ordered by the user's preference, and disply the number of likes, favourites and views on each one. The user should be able to scroll through them. Clicking on one of them will take the user to an individual page so they can read the crime. |
@@ -70,7 +70,7 @@ I will use the design created on Figma last year as a template for a new design 
 ### **Design Table**:
 
 | Aspect of Design | Description |
-| -------- | -------- |
+| ---------------- | ----------- |
 | Landing Page | The landing page is similar to the original design. I wanted to add some text to prevent it looking very empty, as before it only had a large image of the logo, but functionality-wise it is the same. The page still feels lacking in terms of interactions for the user, so for the actual project I want to add more features to this page. |
 | Navigation Bar | The navigation bar has been moved from the top to the left side of the screen. I believe the navigation bar is more fitting on the top rather than the side as there is much more blank space when it is on the side, leading to it looking more empty. To fill some of the empty space, I added an image of the confessions.com logo. |
 | Top Crimes Page | This page is the most similar to previous designs. The main difference is the navigation bar being moved and the colours/typography, so the main functions of the page are the same as before. The 'click to view more' button uses the accent colour to make it stand out. |
@@ -103,56 +103,58 @@ I will use the design created on Figma last year as a template for a new design 
 
 ### **Basic Algorithm - Creating an Account - Pseudocode**
 
-    1. Declare variables: username, password, confirmpassword, email, verificationcode, matchverificationcode
-    2. Prompt user to enter a username, password and email
-    3. Get username, password and email
-    4. Display username, password and email
-    5. IF username is taken, THEN
-        5.1. DO
-            5.1.1. Display error message "Username is taken"
-            5.1.2. Prompt user to enter new username
-            5.1.3. Get new username
-        5.2. WHILE username is taken
-    6. IF password is less than 8 characters, THEN
-        6.1. DO
-            6.1.1. Display error message "Password is less than 8 characters"
-            6.1.2. Prompt user to enter new password
-            6.1.3. Get new password
-        6.2. WHILE password is less than 8 characters
-    7. IF password does not contain a number
-        7.1. DO
-            7.1.1. Display error message "Password does not contain a number"
-            7.1.2. Prompt user to enter new password
-            7.1.3. Get new password
-        7.2. WHILE password does not contain a number
-    8. IF password does not contain a capital letter
-        8.1. DO
-            8.1.1. Display error message "Password does not contain a capital letter"
-            8.1.2. Prompt user to enter new password
-            8.1.3. Get new password
-        8.2. WHILE password does not contain a capital letter
-    9. ENDIF
-    10. Prompt user to enter a confirmpassword
-    11. Get confirmpassword
-    12. Display confirmpassword
-    13. IF confirmpassword does not match password, THEN
-        13.1. DO
-            13.1.1. Display error message "Passwords do not match"
-            13.1.2. Prompt user to enter new confirmpassword
-            13.1.3. Get confirmpassword
-        13.2. WHILE confirmpassword does not equal password
-    13. ENDIF
-    14. Set verificationcode to random 6-digit integer
-    15. Send verificationcode to email
-    16. Prompt user to input matchverificationcode
-    17. IF matchverificationcode does not match verificationcode, THEN
-        17.1. DO
-            17.1.1. Display error message "Verification codes do not match"
-            17.1.2. Prompt user to re-enter verificationcode
-            17.1.3. Get verificationcode
-        17.2. WHILE matchverificationcode does not match verificationcode
-    18. Create account with username, password and email data
-    19. Log in user to platform
+```
+1. Declare variables: username, password, confirmpassword, email, verificationcode, matchverificationcode
+2. Prompt user to enter a username, password and email
+3. Get username, password and email
+4. Display username, password and email
+5. IF username is taken, THEN
+    5.1. DO
+        5.1.1. Display error message "Username is taken"
+        5.1.2. Prompt user to enter new username
+        5.1.3. Get new username
+    5.2. WHILE username is taken
+6. IF password is less than 8 characters, THEN
+    6.1. DO
+        6.1.1. Display error message "Password is less than 8 characters"
+        6.1.2. Prompt user to enter new password
+        6.1.3. Get new password
+    6.2. WHILE password is less than 8 characters
+7. IF password does not contain a number
+    7.1. DO
+        7.1.1. Display error message "Password does not contain a number"
+        7.1.2. Prompt user to enter new password
+        7.1.3. Get new password
+    7.2. WHILE password does not contain a number
+8. IF password does not contain a capital letter
+    8.1. DO
+        8.1.1. Display error message "Password does not contain a capital letter"
+        8.1.2. Prompt user to enter new password
+        8.1.3. Get new password
+    8.2. WHILE password does not contain a capital letter
+9. ENDIF
+10. Prompt user to enter a confirmpassword
+11. Get confirmpassword
+12. Display confirmpassword
+13. IF confirmpassword does not match password, THEN
+    13.1. DO
+        13.1.1. Display error message "Passwords do not match"
+        13.1.2. Prompt user to enter new confirmpassword
+        13.1.3. Get confirmpassword
+    13.2. WHILE confirmpassword does not equal password
+13. ENDIF
+14. Set verificationcode to random 6-digit integer
+15. Send verificationcode to email
+16. Prompt user to input matchverificationcode
+17. IF matchverificationcode does not match verificationcode, THEN
+    17.1. DO
+        17.1.1. Display error message "Verification codes do not match"
+        17.1.2. Prompt user to re-enter verificationcode
+        17.1.3. Get verificationcode
+    17.2. WHILE matchverificationcode does not match verificationcode
+18. Create account with username, password and email data
+19. Log in user to platform
+```
 
 ### **Flowchart Image**
 
@@ -160,7 +162,7 @@ I will use the design created on Figma last year as a template for a new design 
 
 ### **Test Cases**
 
-**Test Case ID:** AD001
+**Test Case ID:** AD-001
 
 **Test Case Name:** Creating an account
 
@@ -184,7 +186,7 @@ I will use the design created on Figma last year as a template for a new design 
 **Priority:** Very High
 
 
-**Test Case ID:** AD002
+**Test Case ID:** AD-002
 
 **Test Case Name:** Resetting account password
 
@@ -203,3 +205,17 @@ I will use the design created on Figma last year as a template for a new design 
 **Expected Result:** Account data is correctly updated and user is logged in with the account.
 
 **Priority:** High
+
+### **Client Feedback**
+
+- Need to fix up flowchart - inaccurate to pseudocode (will be changed), also there is a singular missing arrow that NEEDS fixing
+- No usage of variables within test cases such as `username`, `password` etc
+
+
+## **Week 5 - Setting Up for Development and Database Work (SQL)**
+
+**20/8/25 - Initial Backend Setup**
+
+**21/8/25 - Setup of Database Tables**
+
+**22/8/25 - Populating Tables and Sorting Data with SQL**
