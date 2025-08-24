@@ -216,6 +216,18 @@ I will use the design created on Figma last year as a template for a new design 
 
 **20/8/25 - Initial Backend Setup**
 
-**21/8/25 - Setup of Database Tables**
+- I first managed to install all the necessary dependencies for Python, VSCode, Flask, SQLite and Git-Bash. I progressed through the tutorial well at first, but I did get stuck on the `pip install flask` step as, when trying to put the command into Git-bash, it would respond with `Command not found`. Yi Ping assisted me in getting Flask to work.
+- I set up the required file directory with folders for `static`, `templates`, `working_documents` and `database`, plus `database_manager.py` and `main.py`. Within the `database` folder I set up the SQLite Database with a few different files - one for the actual data (which will contain tables that can be imported with Excel) and a Query Editor which will contain the SQL queries. I managed to add the initial table from the `SETUP` docs, however I didn't yet understand how the tables worked.
+
+**21/8/25 - Setting Up Database Tables**
+
+- For this lesson, I aimed to figure out how the SQL tables worked and start adding the queries. I went through the SQL tutorial website and looked through the SQL course on Grok to revise the basic functions of SQL (since it had been a while since I'd done the course). After a bit, I remembered how SQL queries are structured with `SELECT * FROM`, `WHERE` and `ORDER BY`. I used SQL's `CREATE TABLE` and `INSERT INTO` functions to create a basic layout for two tables - `UserData` and `PostData` - however I realised I could generate the data using Mockaroo, which I would do tomorrow.
 
 **22/8/25 - Populating Tables and Sorting Data with SQL**
+
+- Using Mockaroo, I was able to add two tables of mock data with 1000 rows each, for both user and posts on the website. For `userData`, there are columns for `userID` (which is the primary key), `username`, `password`, `email` and `creationdate`. For `postData`, there are columns for `postID`, `username` (of whoever posted it), `post` (for the actual text), `postTime`, `public` (bool), `views` and `likes`. There were some columns that I forgot to add such as `postTitle`, `followers`, `following` and `description`, which will be added later.
+- I added some queries for posts with over 2000 `likes` and over 90,000 `views`, which are both very basic for now. Later, I improved them and added some more queries so that there were five in total.
+    - UserData: Select data from a specific user, sort by most recently created users.
+    - PostData: Sort by the top 50 most liked/viewed posts, sort by posts within the last (timeframe).
+
+### **Wk 6 - TBD**
