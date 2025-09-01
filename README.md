@@ -230,4 +230,14 @@ I will use the design created on Figma last year as a template for a new design 
     - UserData: Select data from a specific user, sort by most recently created users.
     - PostData: Sort by the top 50 most liked/viewed posts, sort by posts within the last (timeframe).
 
-## **Wk 6 - TBD**
+## **Week 6 + 7[^1] - Creating and Styling Webpages (HTML/CSS)**
+
+[^1]: I swear this is not a six seven joke
+
+**25/8/25 - Setting up the Frontend**
+- I started the lesson by finishing up the meetings from the last period. Then, I started to go through the second setup document and copied the code into the appropriate files. However, when I got up to rendering the website, I couldn't get it to load and got hit with a Jinga2 error. Instead of fixing it, I went through the rest of the docs just in case it would work when I finished (it didn't). I couldn't figure out how to get it to render the page, so instead I left it as is and waited for the double CPT on Thursday to get it fixed.
+
+**28/8/25 - Fixing the Rendering**
+- I managed to deduce that it was an issue with trying to load the page, as it stated that the error was `Template not found:` with an incorrect pathing to `index.html`.
+
+**29/8/25 - Designing the first page**
