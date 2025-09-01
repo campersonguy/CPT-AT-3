@@ -240,24 +240,28 @@ I will use the design created on Figma last year as a template for a new design 
 **28/8/25 - Fixing the Rendering and Designing a Page**
 - I managed to deduce that it was an issue with trying to load the page, as it stated that the error was `Template not found:` with an incorrect pathing to `index.html`. By fixing the pathing to fit the file directory I had, I managed to get `index.html` loaded onto the page by using the link in the terminal after running `python main.py` once I ran `cd Flask` first so the command can access `main.py`. Afterwards, I linked up `style.css` and `favicon.png` so the page would display with a logo and render the stylesheet properly (except for the first image that has an incorrect link and can't render), and redirected one of the links on the navigation bar to a page that I had created, `homepage.html`, to be able to show the original page had loaded as well as being able to display any new pages I would create. I aimed to recreate the first page that had been initially designed on Canva, and then to link a signup and login page. Before starting, I went through the HTML/CSS and JavaScript courses on Grok to refresh myself, and then I started designing the page. I only managed to add a gradient background, an image, some text and two buttons onto the page before the lesson ended.
 
-    body {
-        background: linear-gradient(to right, rgb(0, 0, 172), rgb(31, 31, 74));
-        text-align: center;
-    }
+```
+body {
+    background: linear-gradient(to right, rgb(0, 0, 172), rgb(31, 31, 74));
+    text-align: center;
+}
+```
 
-    <!DOCTYPE html>
-    <html lang="en">
-    <head>
-        <link rel="stylesheet" href="..\static\css\homepage_style.css"/>
-        <link rel="icon" type="image/x-icon" href="..\static\images\favicon.png"/>
-        <title>confessions.com</title>
-    </head>
-    <body>
-        <img src="..\..\static\images\logo.png" alt="logo">
-        <h1 id="a">The only place where you can see the latest crimes. It's the details the news doesn't tell you.</h1>
-        <p class="button login" id="login">Log In</p>
-        <p class="button signup" id="signup">Sign Up</p>
-    </body>
-    </html>
+```
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link rel="stylesheet" href="..\static\css\homepage_style.css"/>
+    <link rel="icon" type="image/x-icon" href="..\static\images\favicon.png"/>
+    <title>confessions.com</title>
+  </head>
+  <body>
+    <img src="..\..\static\images\logo.png" alt="logo">
+    <h1 id="a">The only place where you can see the latest crimes. It's the details the news doesn't tell you.</h1>
+    <p class="button login" id="login">Log In</p>
+    <p class="button signup" id="signup">Sign Up</p>
+  </body>
+</html>
+```
 
 **29/8/25 - Fixing the first page**
