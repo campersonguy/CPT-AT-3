@@ -230,20 +230,26 @@ I will use the design created on Figma last year as a template for a new design 
     - UserData: Select data from a specific user, sort by most recently created users.
     - PostData: Sort by the top 50 most liked/viewed posts, sort by posts within the last (timeframe).
 
-## **Week 6 + 7[^1] - Creating and Styling Webpages (HTML/CSS)**
-
-[^1]: I swear this is not a six seven joke you have to believe me
+## **Weeks 6, 7 and 8 - Creating and Styling Webpages (HTML/CSS)**
 
 **25/8/25 - Setting up the Frontend**
 - I started the lesson by finishing up the meetings from the last period. Then, I started to go through the second setup document and copied the code into the appropriate files. However, when I got up to rendering the website, I couldn't get it to load and got hit with a Jinga2 error. Instead of fixing it, I went through the rest of the docs just in case it would work when I finished (it didn't). I couldn't figure out how to get it to render the page, so instead I left it as is and waited for the double CPT on Thursday to get it fixed.
 
 **28/8/25 - Fixing the Rendering and Designing a Page**
-- I managed to deduce that it was an issue with trying to load the page, as it stated that the error was `Template not found:` with an incorrect pathing to `index.html`. By fixing the pathing to fit the file directory I had, I managed to get `index.html` loaded onto the page by using the link in the terminal after running `python main.py` once I ran `cd Flask` first so the command can access `main.py`. Afterwards, I linked up `style.css` and `favicon.png` so the page would display with a logo and render the stylesheet properly (except for the first image that has an incorrect link and can't render), and redirected one of the links on the navigation bar to a page that I had created, `homepage.html`, to be able to show the original page had loaded as well as being able to display any new pages I would create. I aimed to recreate the first page that had been initially designed on Canva, and then to link a signup and login page. Before starting, I went through the HTML/CSS and JavaScript courses on Grok to refresh myself, and then I started designing the page. I only managed to add a gradient background, an image, some text and two buttons onto the page before the lesson ended.
+- I managed to deduce that it was an issue with trying to load the page, as it stated that the error was `Template not found:` with an incorrect pathing to `index.html`. By fixing the pathing to fit the file directory I had, I managed to get `index.html` loaded onto the page by using the link in the terminal after running `python main.py` once I ran `cd Flask` first so the command can access `main.py`. Afterwards, I linked up `style.css` and `favicon.png` so the page would display with a logo and render the stylesheet properly (except for the first image that has an incorrect link and can't render), and redirected one of the links on the navigation bar to a page that I had created, `homepage.html`, to be able to show the original page had loaded as well as being able to display any new pages I would create.
+- I aimed to recreate the first page that had been initially designed on Canva, and then to link a signup and login page. Before starting, I went through the HTML/CSS and JavaScript courses on Grok to refresh myself, and then I started designing the page. I only managed to add a gradient background, an image, some text and two buttons onto the page before the lesson ended.
 
 ```
 body {
     background: linear-gradient(to right, rgb(0, 0, 172), rgb(31, 31, 74));
     text-align: center;
+}
+
+img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 350px;
 }
 ```
 
@@ -265,3 +271,29 @@ body {
 ```
 
 **29/8/25 - Fixing the first page**
+- I aimed to fix up the first page of my website by adding some JavaScript to make the buttons work. I started by going back through some of the Grok source on JavaScript to recall how it works, and I started by getting the text to change when the buttons were clicked. I was able to do this with the folowing script:
+
+```
+<body>
+  <img src="..\..\static\images\logo.png" alt="logo">
+  <h1 id="title">The only place where you can see the latest crimes. It's the details the news doesn't tell you.</h1>
+  <a href="login" class="button login" id="login">Login</a>
+  <a href="signup" class="button signup">Sign Up</a>
+  <p class="copyright">© Cameron Guglielmino Productions 2025 Pty Ltd.</p>
+  <script>
+    function Login() {
+        title.textContent = 'login';
+    }
+    login.onclick = Login;
+  </script>
+</body>
+```
+
+**1/9/25 & 2/9/25 - Adding new pages**
+login page top crimes OIhoaClneaPIAUHYGAVEJEAmidiciyaufjhp8egaiciu
+
+**3/9/25 - Passing Data to the Frontend**
+login page owrking please god help me
+
+**4/9/25 - Styling pages**
+making top crimes not look like bad stupid bad
