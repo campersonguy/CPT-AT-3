@@ -290,10 +290,97 @@ img {
 ```
 
 **1/9/25 & 2/9/25 - Adding new pages**
-login page top crimes OIhoaClneaPIAUHYGAVEJEAmidiciyaufjhp8egaiciu
+- login page top crimes OIhoaClneaPIAUHYGAVEJEAmidiciyaufjhp8egaiciu
 
 **3/9/25 - Passing Data to the Frontend**
-login page owrking please god help me
+- This is where the fun begins - passing data to the frontend before Mr Clark teaches you how to. To figure this out, I first tried googling how to pass data, but ended up giving up because I couldn't get a clear answer. Instead, I attempted to look through the example code to figure out how the extension table is used in the example page.
 
-**4/9/25 - Styling pages**
-making top crimes not look like bad stupid bad
+- The first thing I noticed in the `index.html` page was this line from `main.py`:
+
+```
+@app.route("/index.html", methods=["GET"])
+@app.route("/", methods=["POST", "GET"])
+def homepage():
+    data = dbHandler.listExtension()
+    return render_template("index.html", content=data)
+```
+
+- The second thing I noticed was in `index.html` which used a lot of lines such as `{{ % for row in content %}}`, `{{ % endfor %}}`, `"Product image for the {{ row[1] }} VSCode extension."`, etc.
+
+```
+{% extends 'layout.html' %} {% block content %}
+<div class="container">
+  {% for row in content %}
+<div class="card">
+  <img
+    class="card-image"
+    src="{{ row[4] }}"
+    alt="Product image for the {{ row[1] }} VSCode extension."
+  />
+  <h1 class="card-name">{{ row[1] }}</h1>
+  <p class="card-about">{{ row[3] }}</p>
+  <a class="card-link" href="{{ row[2] }}"
+    ><button class="btn">Read More</button></a
+  >
+</div>
+{% endfor %}
+</div>
+{% endblock %}
+```
+
+- I deduced that the passed data is translated through the `{{ % (whatever) % }}` formatting that has been used in the example pages. Specifically, the line `{{ % for row in content}}` is structured similarly to a for loop used in other coding languages such as JavaScript and C#, and the last line from the `main.py` extract says `content=data` after `data = dbHandler.listExtension()`. `data = dbHandler.listExtension()` is used to access `database_manager.py` to run `listExtension()`, which looks like this:
+
+```
+def listExtension():
+    con = sql.connect("database/data_source.db")
+    cur = con.cursor()
+    data = cur.execute("SELECT * FROM extension").fetchall()
+    con.close()
+    return data
+```
+
+- So, I figured out that `def` functions from `database_manager.py` are what is used to translate data from the SQL tables to the frontend webpages. To access them on other pages, I added a separate function on `database_manager.py` and ported the data to whatever pages I wanted through `main.py`. For example, to get data from posts to the Top Crimes page:
+
+```
+def listPostData():
+    con = sql.connect("database/data_source.db")
+    cur = con.cursor()
+    data = cur.execute("SELECT user, post, views, likes FROM postData").fetchall()
+    con.close()
+    return data
+
+
+def sortPostData1():
+    con = sql.connect("database/data_source.db")
+    cur = con.cursor()
+    view = cur.execute(
+        "SELECT * FROM postData ORDER BY views DESC LIMIT 100;"
+    ).fetchall()
+    con.close()
+    return view
+
+
+def sortPostData2():
+    con = sql.connect("database/data_source.db")
+    cur = con.cursor()
+    view = cur.execute(
+        "SELECT * FROM postData ORDER BY likes DESC LIMIT 100;"
+    ).fetchall()
+    con.close()
+    return view
+```
+```
+@app.route("/top_crimes")
+def topcrimes():
+    data = dbHandler.listPostData()
+    view1 = dbHandler.sortPostData1()
+    view2 = dbHandler.sortPostData2()
+    return render_template(
+        "partials/top_crimes.html", content=data, view1=view1, view2=view2
+    )
+```
+
+- From the Top Crimes page, I can then access the data using `{{ % view1[0][1] % }}`, where the first digit represents what row of data to use and the second represents what column.
+
+**4/9/25 & 8/9/25 - Styling pages**
+- making top crimes not look like bad stupid bad
