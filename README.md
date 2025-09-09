@@ -104,7 +104,8 @@ I will use the design created on Figma last year as a template for a new design 
 ### **Basic Algorithm - Creating an Account - Pseudocode**
 
 ```
-1. Declare variables: username, password, confirmpassword, email, verificationcode, matchverificationcode
+1. Declare variables: username, password, confirmpassword, email, verificationcode, 
+matchverificationcode
 2. Prompt user to enter a username, password and email
 3. Get username, password and email
 4. Display username, password and email
@@ -292,10 +293,120 @@ img {
 ```
 
 **1/9/25 & 2/9/25 - Adding new pages**
-- adding login page top crimes page hrhghhrhrhggrhrhgrhrh + nav bar
+- For these lessons, I wanted to start on adding more pages to my website, and add some details to them so they weren't completely empty.
+- In order to add more pages, `main.py` has to be able to load them. So, to get the new pages to load (`login.html` and `top_crimes.html`), more code has to be added to `main.py`. The initial code for `index.html` looks like this:
+
+```
+@app.route("/index.html", methods=["GET"])
+@app.route("/", methods=["POST", "GET"])
+def homepage():
+    data = dbHandler.listExtension()
+    return render_template("index.html", content=data)
+```
+
+- The first `@app.route` line determines what the URL for the page will be. In this case, it can be either set to `/index.html` or `/` because, in HTML, `index.html` is used as the first page so it interprets `/index.html` as nothing, so the front page loads first. The `data` line is used to pass data to the frontend, so it isn't useful yet and doesn't need to be included. At the time, I didn't know what the second `@app.route` line was used for, so I didn't include it either. The `return` line is used to link the appropriate HTML file, and `content=data` is only for passing data so it doesn't need to be included. For `login.html`, the new code looks like this: (and `top_crimes.html` is essentially the same with a different link)
+
+```
+@app.route("/login")
+def login():
+    return render_template("partials/login.html")
+```
+
+- To add detail to the pages, I linked `login.html` and `top_crimes.html` with their own stylesheets and copied over the gradient I used on the front page. Under `login.html`, I learned how to add input boxes, so the user can input their username/email and password when the login page was fully working, and then added an Enter button below it. The code for it looked like this: (mind that the signup link doesn't work yet)
+
+```
+<body>
+    <img src="..\..\static\images\logo.png" alt="logo">
+    <p>Username or Email</p> <br>
+    <input id="username" placeholder="Enter username..."><br>
+    <p>Password</p><br>
+    <input id="password" placeholder="Enter password..."><br>
+    <p>Don't have an account? <a href="signup"><u>Sign Up</u></a></p><br>
+    <p class="incorrect" id="inc"></p><br>
+    <button id="enter">Enter</button>
+</body>
+```
+
+- For `top_crimes.html`, I aimed to add a navigation bar on the left side of the page. I started with a simple list that contained each page that I planned to add as an option to switch to through the navigation bar. To replicate the original navigation bar design from earlier in the project, the links would be listed vertically and there would be a logo at the bottom of the bar. To do this, i first set `list-style-type` to `none` to remove the bullet points that were visible, set `text-decoration` to `none` to remove the underlines and added `border-bottom: 2px solid black` to each `li` to give them a visible separation, plus `padding-top: 20px` and `padding-bottom: 20px` to space them out more. Under `nav ul li:last-child`, I added `padding-bottom: 450px` to ensure that the navigation bar extends far enough to make it the entire page. For the logo, I added `margin-top: 260px` to position it at the bottom of the bar (and yes I am aware this is not the most efficient way to do that, but it's good enough for now). For final details, I removed the `a` from the Top Crimes link to make it unusable and styled it grey to show the user that they can't go to the page they're already on. For the rest of the links, I used `nav ul li:hover` to change the background color slightly when the links are hovered over and used `nav ul li a:hover` to make the text bold when hovered over.
+
+```
+<head>
+    <link rel="stylesheet" href="..\static\css\top_crimes_style.css" />
+    <link rel="icon" type="image/x-icon" href="..\static\images\favicon.png" />
+    <title>confessions.com - Top Crimes</title>
+    <nav>
+        <ul>
+            <li class="selected">Top Crimes</li>
+            <li><a href="search_crimes">Search Crimes</a></li>
+            <li><a href="submit_crimes">Submit Crimes</a></li>
+            <li><a href="leaderboard">Leaderboard</a></li>
+            <li><a><img src="..\static\images\logo.png" alt="logo" width="128" height="60" 
+            class="logo"></a></li>
+        </ul>
+    </nav>
+</head>
+```
+
+```
+nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    border-right: 2px solid black;
+}
+
+nav ul {
+    text-align: center;
+    list-style-type: none;
+    justify-content: flex-start;
+    margin: 0;
+    padding: 0;
+}
+
+nav ul li {
+    background-color: rgb(47, 47, 134);
+    padding-top: 20px;
+    padding-bottom: 20px;
+    font-family: 'Titillium Web';
+    border-bottom: 2px solid black;
+}
+
+nav ul li:last-child {
+    padding-bottom: 450px;
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: white;
+    font-family: 'Titillium Web';
+    padding: 30px;
+}
+
+nav ul li a:hover {
+    font-weight: bold;
+}
+
+nav ul li:hover {
+    background-color: rgb(31, 31, 130);
+}
+
+nav ul li.selected {
+    color: gray;
+    background-color: rgb(20, 20, 104);
+}
+
+nav ul li:last-child {
+    background-color: rgb(47, 47, 134);
+}
+
+.logo {
+    margin-top: 260px;
+    padding: 0px;
+}
+```
 
 **3/9/25 & 4/9/25 - Passing Data to the Frontend**
-- This is where the fun begins - passing data to the frontend before Mr Clark teaches you how to. To figure this out, I first tried googling how to pass data, but ended up giving up because I couldn't get a clear answer. Instead, I attempted to look through the example code to figure out how the extension table is used in the example page.
+- This is where the fun begins: passing data to the frontend before Mr Clark teaches you how to. To figure this out, I first tried googling how to pass data, but ended up giving up because I couldn't get a clear answer. Instead, I attempted to look through the example code to figure out how the extension table is used in the example page.
 
 - The first thing I noticed in the `index.html` page was this line from `main.py`:
 
