@@ -263,7 +263,8 @@ img {
   </head>
   <body>
     <img src="..\..\static\images\logo.png" alt="logo">
-    <h1 id="a">The only place where you can see the latest crimes. It's the details the news doesn't tell you.</h1>
+    <h1 id="a">The only place where you can see the latest crimes. It's the details the news 
+    doesn't tell you.</h1>
     <p class="button login" id="login">Log In</p>
     <p class="button signup" id="signup">Sign Up</p>
   </body>
@@ -276,7 +277,8 @@ img {
 ```
 <body>
   <img src="..\..\static\images\logo.png" alt="logo">
-  <h1 id="title">The only place where you can see the latest crimes. It's the details the news doesn't tell you.</h1>
+  <h1 id="title">The only place where you can see the latest crimes. It's the details the news 
+  doesn't tell you.</h1>
   <a href="login" class="button login" id="login">Login</a>
   <a href="signup" class="button signup">Sign Up</a>
   <p class="copyright">© Cameron Guglielmino Productions 2025 Pty Ltd.</p>
@@ -290,9 +292,9 @@ img {
 ```
 
 **1/9/25 & 2/9/25 - Adding new pages**
-- login page top crimes OIhoaClneaPIAUHYGAVEJEAmidiciyaufjhp8egaiciu
+- adding login page top crimes page hrhghhrhrhggrhrhgrhrh + nav bar
 
-**3/9/25 - Passing Data to the Frontend**
+**3/9/25 & 4/9/25 - Passing Data to the Frontend**
 - This is where the fun begins - passing data to the frontend before Mr Clark teaches you how to. To figure this out, I first tried googling how to pass data, but ended up giving up because I couldn't get a clear answer. Instead, I attempted to look through the example code to figure out how the extension table is used in the example page.
 
 - The first thing I noticed in the `index.html` page was this line from `main.py`:
@@ -380,7 +382,7 @@ def topcrimes():
     )
 ```
 
-- From the Top Crimes page, I can then access the data using `{{ % view1[0][1] % }}`, where the first digit represents what row of data to use and the second represents what column.
+- From the Top Crimes page, I can then access the data using `{{ % view1[0][1] % }}`, where the first digit represents what row of data to use and the second represents what column. Using this method, I entered `SELECT user, pw, email FROM userData` and ported it to the Login page to attempt to set up a functional Login page that compares entered login credentials to existing details from the database.
 
 **4/9/25 & 8/9/25 - Styling pages**
 - making top crimes not look like bad stupid bad
