@@ -452,7 +452,7 @@ def listExtension():
     return data
 ```
 
-- So, I figured out that `def` functions from `database_manager.py` are what is used to translate data from the SQL tables to the frontend webpages. To access them on other pages, I added a separate function on `database_manager.py` and ported the data to whatever pages I wanted through `main.py`. For example, to get data from posts to the Top Crimes page:
+- I figured out that `def` functions from `database_manager.py` are what is used to translate data from the SQL tables to the frontend webpages. To access them on other pages, I added a separate function on `database_manager.py` and ported the data to whatever pages I wanted through `main.py`. For example, to get data from posts to the Top Crimes page:
 
 ```
 def listPostData():
@@ -495,5 +495,65 @@ def topcrimes():
 
 - From the Top Crimes page, I can then access the data using `{{ % view1[0][1] % }}`, where the first digit represents what row of data to use and the second represents what column. Using this method, I entered `SELECT user, pw, email FROM userData` and ported it to the Login page to attempt to set up a functional Login page that compares entered login credentials to existing details from the database.
 
-**4/9/25 & 8/9/25 - Styling pages**
-- making top crimes not look like bad stupid bad
+```
+<script>
+    const data = {{ content | tojson | safe }};
+    function Enter() {
+        if (username.value == "" || password.value == "") {
+            inc.textContent = "Missing username or password";
+        } else {
+            for (let i = 0; i <= data.length - 1; i++) {
+                if (username.value.trim() != data[i][0] && username.value.trim() != data[i][2]) {
+                    inc.textContent = "Incorrect username or password";
+                } else {
+                    const outerIndex = data.findIndex(inner => inner.includes(username.value));
+                    if (password.value != data[outerIndex][1]) {
+                        inc.textContent = "Incorrect username or password";
+                    } else {
+                        inc.textContent = "";
+                        window.location.href = "top_crimes";
+                    }
+                }
+            }
+        }
+    }
+    enter.onclick = Enter;
+    </script>
+```
+
+**4/9/25 - Styling pages**
+- For these lessons, I wanted to style some of the pages to make them look better. To start, I took the `top_crimes` page and 
+- Styling login, topcrimes, signup
+
+**8/9/25 - 11/9/25 - Sorting Data in Real Time**
+- For these lessons, I aimed to generate data in real time on the `top_crimes` page based on the selected option under a dropdown menu. To do this, I originally wrote code to take the first line of data from `postData` and display it:
+
+```
+<p><strong>#{{ view1[0][0] }} - {{ view1[0][2]}}, by: {{ view1[0][1] }}</strong><br>👁&nbsp;
+{{ view1[0][6] }}&nbsp;👍&nbsp;{{ view1[0][7] }}<br><br>{{ view1[0][3] }}</p>
+```
+
+- However, this code only generates a single line from the database, and I would have to copypaste that line over a thousand times to generate all the data. Plus, it wouldn't be able to update when the dropdown menu was changed. Therefore, I had to write a script that not only generates all the lines of data, but also updates it. In JavaScript, I wrote this code to generate all the `li` elements:
+
+```
+for (let i = 0; i < 50; i++) {
+    const li = document.createElement("li");
+    li.classList.add("crime");
+    ol.appendChild(li);
+    const br = document.createElement("br");
+    const br2 = document.createElement("br");
+    ol.appendChild(br);
+    ol.appendChild(br2);
+}
+```
+
+- This would generate 50 elements that could then be set to the correct text elements. However, to change the text of the elements in JS, you can't use <strong> and {{ view1[x][y] }} properly without it breaking. Instead of `.textcontent`, you can use `.innerHTML` (provided you change {{ view1[x][y] }} to ${view1[x][y]}):
+
+```
+list[i].innerHTML = `<strong>#` + (i + 1) + ` - ${sort2[i][2]} - ${sort2[i][1]}</strong><br>👁
+&nbsp;${sort2[i][6]}&nbsp;👍&nbsp;${sort2[i][7]}<br><br>${sort2[i][3]}`;
+```
+
+**17/9/25 - 19/9/25 - Adding Data to the Backend & Lighthouse Testing**
+
+**22/9/25 - 25/9/25 - Adding the Last Pages**
