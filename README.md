@@ -547,7 +547,7 @@ for (let i = 0; i < 50; i++) {
 }
 ```
 
-- This would generate 50 elements that could then be set to the correct text elements. However, to change the text of the elements in JS, you can't use <strong> and {{ view1[x][y] }} properly without it breaking. Instead of `.textcontent`, you can use `.innerHTML` (provided you change {{ view1[x][y] }} to ${view1[x][y]}):
+- This would generate 50 elements that could then be set to the correct text elements. However, to change the text of the elements in JS, you can't use `<strong>` and {{ view1[x][y] }} properly without it breaking. Instead of `.textcontent`, you can use `.innerHTML` (provided you change {{ view1[x][y] }} to ${view1[x][y]}):
 
 ```
 list[i].innerHTML = `<strong>#` + (i + 1) + ` - ${sort2[i][2]} - ${sort2[i][1]}</strong><br>👁
