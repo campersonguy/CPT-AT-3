@@ -518,12 +518,71 @@ def topcrimes():
         }
     }
     enter.onclick = Enter;
-    </script>
+</script>
 ```
 
-**4/9/25 - Styling pages**
-- For these lessons, I wanted to style some of the pages to make them look better. To start, I took the `top_crimes` page and 
-- Styling login, topcrimes, signup
+**4/9/25 - Styling Pages**
+- For these lessons, I wanted to style some of the pages to make them look better, mainly `top_crimes`, `login` and `signup`. Styling `login` and `signup` was very easy, as I just made sure to align the input fields properly and added a description to `login` since the page was very bland and had nothing on it outside of the actual login fields. For `signup`, I also added a box on the right side, next to the input fields, displaying the conditions an account must meet, such as the password must have at least 8 characters and must have a number in it. To make these conditions work, I added some javascript code to detect what was in the fields and update the conditions box dynamically:
+
+```
+    <script>
+        const uchar = document.getElementById("uchar");
+        const uspa = document.getElementById("uspa");
+        const pchar = document.getElementById("pchar");
+        const num = document.getElementById("num");
+        const cap = document.getElementById("cap");
+        const match = document.getElementById("match");
+        const signupForm = document.getElementById('signup');
+        let numtest = /\d/;
+        let captest = /[A-Z]/;
+        let spatest = / /;
+        let atest = /@/;
+
+        function updateData() {
+            if (username.value.length <= 16 && username.value.length >= 3) {
+                uchar.style.color = "lime";
+            } else {
+                uchar.style.color = "red";
+            }
+            uchar1.textContent = " (" + username.value.length + ")";
+
+            if (!spatest.test(username.value) && username.value.length >= 1) {
+                uspa.style.color = "lime";
+            } else {
+                uspa.style.color = "red";
+            }
+
+            if (password.value.length >= 8) {
+                pchar.style.color = "lime";
+            } else {
+                pchar.style.color = "red";
+            }
+            pchar1.textContent = " (" + password.value.length + ")";
+
+            if (numtest.test(password.value)) {
+                num.style.color = "lime";
+            } else {
+                num.style.color = "red";
+            }
+
+            if (captest.test(password.value)) {
+                cap.style.color = "lime";
+            } else {
+                cap.style.color = "red";
+            }
+
+            if (password.value === cpassword.value && password.value !== "") {
+                match.style.color = "lime";
+            } else {
+                match.style.color = "red";
+            }
+        }
+        const intervalId = setInterval(updateData, 1);
+    </script>
+```
+- This code would update the colors of each condition as well as displaying exactly how many characters the username and passowrd has, as shown in this screenshot:
+
+![signup](signup.png)
 
 **8/9/25 - 11/9/25 - Sorting Data in Real Time**
 - For these lessons, I aimed to generate data in real time on the `top_crimes` page based on the selected option under a dropdown menu. To do this, I originally wrote code to take the first line of data from `postData` and display it:
@@ -554,6 +613,82 @@ list[i].innerHTML = `<strong>#` + (i + 1) + ` - ${sort2[i][2]} - ${sort2[i][1]}<
 &nbsp;${sort2[i][6]}&nbsp;👍&nbsp;${sort2[i][7]}<br><br>${sort2[i][3]}`;
 ```
 
+- After getting the website to generate text properly, I added a dropdown menu that would let the user sort by either views or likes. The way I managed to do this was first generating the 50 list elements, then nesting the above code into a `for` loop that ran infinitely, so it would automatically update.
+
+- As well as sorting the data, I wanted to style the page, since I currently just had it list them on the page with no styling whatsoever. To do this, I seperated each list entry into a box to make the list feel more orderly, then used `<br>` in the code to seperate the title, the view/like count, and the actual story. In the end, it looked like this:
+
+![topcrimes](topcrimes.png)
+
 **17/9/25 - 19/9/25 - Adding Data to the Backend & Lighthouse Testing**
 
+- Next, I needed to learn how to add data to the backend through the `signup` page. At the time, the `signup` page would only detect if your inputs met the conditions, but wouldn't actually add the data to the backend. To add data, I needed to nest the `signup` inputs inside a `<form>`, as the following:
+
+```
+    <form id="signup" action="/signup" method="POST">
+        <p class="sg">Username</p>
+        <input id="username" placeholder="Enter username..." class="sg" name="user">
+        <p class="sg">Email</p>
+        <input id="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2, 4}$" placeholder="Enter
+        email..." class="sg" name="email">
+        <p class="sg">Password</p>
+        <input id="password" type="password" placeholder="Enter password..." class="sg"
+        name="pw">
+        <p class="sg">Confirm Password</p>
+        <input id="cpassword" type="password" placeholder="Enter password..." class="sg">
+        <p class="sg">Already have an account? <a href="login"><u>Log In</u></a></p>
+        <p class="incorrect" id="inc"></p><br>
+        <button id="enter" class="sg">Enter</button>
+    </form>
+```
+
+The `action` and `method` of the form would directly correspond to the code in `main.py`. I updated the code for the `signup` page to be able to add to the database, connecting it to a function in `database_manager.py`:
+
+```
+@app.route("/submit_crimes", methods=["POST", "GET"])
+def submitcrimes():
+    if request.method == "POST":
+        user = request.form["user"]
+        title = request.form["title"]
+        post = request.form["post"]
+        postDate = date.today()
+        public = request.form["public"]
+        views = "0"
+        likes = "0"
+        if public == "on":
+            public = "true"
+        else:
+            public = "false"
+        dbHandler.insertPost(user, title, post, postDate, public, views, likes)
+        return redirect(url_for("topcrimes"))
+    else:
+        return render_template("partials/submit_crimes.html")
+```
+
+```
+def insertPost(user, title, post, postTime, public, views, likes):
+    with sql.connect("database/data_source.db") as con:
+        cur = con.cursor()
+        cur.execute(
+            "INSERT INTO postData (user, title, post, postTime, public, views, likes)
+            VALUES (?,?,?,?,?,?,?)",
+            (user, title, post, postTime, public, views, likes),
+        )
+        con.commit()
+```
+
+- This code will add data from the form into the database through the `insertPost` function. Each of the fields in `signup` correspond to either `user`, `title`, `post` or `public`, and automatically sets `views` and `likes` to 0.
+
+- As well as adding functionality to the `signup` page, I also ran Lighthouse tests on some of my other webpages to try and detect any flaws within my existing pages. All of the pages scored at least 90, except `top_crimes` with a massive outlier, a score of 44. This was clearly a problem, and it scored so low because my code was running every frame, slowing the website down. To fix this, I instead made the code update only when the dropdown menu was updated, through nesting the code under the function `handleDropdownChange`, activated by the dropdown menu.
+
+```
+<select class="sort" id="sort" name="sort" onchange="handleDropdownChange()">
+    <option value="views">Views</option>
+    <option value="likes">Likes</option>
+</select>
+```
+
 **22/9/25 - 25/9/25 - Adding the Last Pages**
+
+- Search Crimes, Submit Crimes, About Us
+
+**27/9/25 - 13/9/25 - Final Additions**
