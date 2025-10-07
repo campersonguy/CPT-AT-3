@@ -644,6 +644,124 @@ list[i].innerHTML = `<strong>#` + (i + 1) + ` - ${sort2[i][2]} - ${sort2[i][1]}<
 The `action` and `method` of the form would directly correspond to the code in `main.py`. I updated the code for the `signup` page to be able to add to the database, connecting it to a function in `database_manager.py`:
 
 ```
+@app.route("/signup", methods=["POST", "GET"])
+def signup():
+    data = dbHandler.listUserData()
+    if request.method == "POST":
+        user = request.form["user"]
+        pw = request.form["pw"]
+        email = request.form["email"]
+        creationdate = date.today()
+        dbHandler.insertContact(user, pw, email, creationdate)
+        return redirect(url_for("topcrimes"))
+    else:
+        return render_template("partials/signup.html", content=data)
+```
+
+```
+def insertContact(user, pw, email, creationdate):
+    con = sql.connect("database/data_source.db")
+    cur = con.cursor()
+    cur.execute(
+        "INSERT INTO userData (user,pw,email,creationdate) VALUES (?,?,?,?)",
+        (user, pw, email, creationdate),
+    )
+    con.commit()
+    con.close()
+```
+
+- This code will add data from the form into the database through the `insertContact` function. Each of the fields in `signup` corresponds to `user`, `pw`, and `email`.
+
+- As well as adding functionality to the `signup` page, I also ran Lighthouse tests on some of my other webpages to try and detect any flaws within my existing pages. All of the pages scored at least 90, except `top_crimes` with a massive outlier, a score of 44. This was clearly a problem, and it scored so low because my code was running every frame, slowing the website down. To fix this, I instead made the code update only when the dropdown menu was updated, through nesting the code under the function `handleDropdownChange`, activated by the dropdown menu.
+
+```
+<select class="sort" id="sort" name="sort" onchange="handleDropdownChange()">
+    <option value="views">Views</option>
+    <option value="likes">Likes</option>
+</select>
+```
+
+**22/9/25 - 25/9/25 - Adding the Last Pages**
+
+- The last few pages I needed to add were `search_crimes`, `submit_crimes`, `about_us` and `leaderboard`[^1].
+
+[^1]: Leaderboard didn't really fit the design of the website, since it was designed around how many crimes someone posted which could easily be cheesed by spamming. Considering the website was mainly focused on posting, sharing and following, I reworked Leaderboard to the users with the most followers.
+
+- Starting with `search_crimes`, the main thing I needed to implement was a 'searching' function, as other than that it was very similar to `top_crimes`. The best way to do this is to only generate values from the database that contain the search input. Both values are attached to `.toLowerCase()` to prevent capitalisation affecting the values.
+
+```
+if (view1[i][2].toLowerCase().includes(search.value.toLowerCase())) {
+```
+
+- This if statement checks if the search value is included in the title/username of each post. This means only posts that contain the search value can appear, which makes it work properly. Adding the if statement to the existing data generation code in `top_crimes` looks like this:
+
+```
+    function generateData() {
+        let i1 = 0;
+        ol.innerHTML = '';
+        for (let i = 0; i < view1.length; i++) {
+            if (dropdown.value === 'title') {
+                if (view1[i][2].toLowerCase().includes(search.value.toLowerCase())) {
+                    const li = document.createElement("li");
+                    li.classList.add("crime");
+                    ol.appendChild(li);
+                    const br = document.createElement("br");
+                    const br2 = document.createElement("br");
+                    ol.appendChild(br);
+                    ol.appendChild(br2);
+                    li.innerHTML = `<strong>` + `${view1[i][2]} - ${view1[i][1]}</strong>
+                    <br>👁&nbsp;${view1[i][6]}&nbsp;👍&nbsp;${view1[i][7]}<br><br>
+                    ${view1[i][3]}`;
+                    i1 += 1;
+                }
+            } else {
+                if (view1[i][1].toLowerCase().includes(search.value.toLowerCase())) {
+                    const li = document.createElement("li");
+                    li.classList.add("crime");
+                    ol.appendChild(li);
+                    const br = document.createElement("br");
+                    const br2 = document.createElement("br");
+                    ol.appendChild(br);
+                    ol.appendChild(br2);
+                    li.innerHTML = `<strong>` + `${view1[i][2]} - ${view1[i][1]}</strong>
+                    <br>👁&nbsp;${view1[i][6]}&nbsp;👍&nbsp;${view1[i][7]}<br><br>
+                    ${view1[i][3]}`;
+                    i1 += 1;
+                }
+            }
+        }
+    }
+```
+
+- For `submit_crimes`, it is very similar to `signup` in that it mainly utilises a form and input fields to function. The following form takes the user's name (as an input since I hadn't done user login sessions yet), their title, their story and the publicity of the crime.
+
+```
+    <form id="signup" action="/submit_crimes" method="POST">
+        <label style="margin-left: 200px;">
+            Name:
+            <input style="text-align: left;" placeholder="Your name here..." name="user">
+        </label>
+        <label style="margin: 50px;">
+            Title:
+            <input style="text-align: left;" placeholder="Name your crime..." name="title">
+        </label><br><br>
+        <label>
+            Your Story Here: <br><br>
+            <textarea size="180" style="height: 300px; width: 700px; margin-left: 140px;
+            text-align: left;"
+                placeholder="Write here..." name="post"></textarea>
+        </label><br><br>
+        <label>
+            <input size="60" type="checkbox" name="public">
+            Public?
+        </label><br><br>
+        <button id="enter">Enter</button>
+    </form>
+```
+
+- In `main.py`, I added code to add form data into the database:
+
+```
 @app.route("/submit_crimes", methods=["POST", "GET"])
 def submitcrimes():
     if request.method == "POST":
@@ -669,26 +787,18 @@ def insertPost(user, title, post, postTime, public, views, likes):
     with sql.connect("database/data_source.db") as con:
         cur = con.cursor()
         cur.execute(
-            "INSERT INTO postData (user, title, post, postTime, public, views, likes)
-            VALUES (?,?,?,?,?,?,?)",
+            "INSERT INTO postData (user, title, post, postTime, public, views, likes) VALUES (?,?,?,?,?,?,?)",
             (user, title, post, postTime, public, views, likes),
         )
         con.commit()
 ```
 
-- This code will add data from the form into the database through the `insertPost` function. Each of the fields in `signup` correspond to either `user`, `title`, `post` or `public`, and automatically sets `views` and `likes` to 0.
+- This code takes all the inputs from `submit_crimes` and puts them into the database using the appropriate `database_manager.py` function.
 
-- As well as adding functionality to the `signup` page, I also ran Lighthouse tests on some of my other webpages to try and detect any flaws within my existing pages. All of the pages scored at least 90, except `top_crimes` with a massive outlier, a score of 44. This was clearly a problem, and it scored so low because my code was running every frame, slowing the website down. To fix this, I instead made the code update only when the dropdown menu was updated, through nesting the code under the function `handleDropdownChange`, activated by the dropdown menu.
-
-```
-<select class="sort" id="sort" name="sort" onchange="handleDropdownChange()">
-    <option value="views">Views</option>
-    <option value="likes">Likes</option>
-</select>
-```
-
-**22/9/25 - 25/9/25 - Adding the Last Pages**
-
-- Search Crimes, Submit Crimes, About Us
+- For `about_me`, I added a short description of the website's history (yapping about how confessions.com started from the New Social Media Presentation from the end of Year 9), since that page didn't need too much interactivity since it was just a text description of the website.
 
 **27/9/25 - 13/9/25 - Final Additions**
+
+- Profiles and user sessions
+- Leaderboard page
+- Other stuff, polishing etc.
