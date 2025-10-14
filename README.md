@@ -787,7 +787,8 @@ def insertPost(user, title, post, postTime, public, views, likes):
     with sql.connect("database/data_source.db") as con:
         cur = con.cursor()
         cur.execute(
-            "INSERT INTO postData (user, title, post, postTime, public, views, likes) VALUES (?,?,?,?,?,?,?)",
+            "INSERT INTO postData (user, title, post, postTime, public, views, likes)
+            VALUES (?,?,?,?,?,?,?)",
             (user, title, post, postTime, public, views, likes),
         )
         con.commit()
@@ -799,6 +800,8 @@ def insertPost(user, title, post, postTime, public, views, likes):
 
 **27/9/25 - 13/9/25 - Final Additions**
 
-- Profiles and user sessions
-- Leaderboard page
-- Other stuff, polishing etc.
+- Adding sessions (login rework)
+- Individual crime pages
+- Profile page
+- Liking and viewing crimes
+- Oversights (changing username and pw in profile, etc.)
