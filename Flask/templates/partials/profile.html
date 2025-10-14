@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="stylesheet" href="..\..\static\css\style.css" />
+    <link rel="icon" type="image/x-icon" href="..\static\images\favicon.png" />
+    <title>confessions.com - Crime</title>
+    <nav>
+        <ul>
+            <li><a href="top_crimes">Top Crimes</a></li>
+            <li><a href="search_crimes">Search Crimes</a></li>
+            <li><a href="submit_crimes">Submit Crimes</a></li>
+            <li class="selected">Your Profile</li>
+            <li><a><img src="..\static\images\logo.png" alt="logo" class="logo"></a></li>
+        </ul>
+    </nav>
+</head>
+
+<body>
+    <h1 class="tc">Your Profile</h1><br>
+    <h4 class="tc">Edit and view your profile!</h4><br><br>
+    <div class="two-columns" style="margin-left: 100px; margin-right: 100px;">
+        <p style="margin-left: 140px;"><strong>Profile Settings:</strong></p><br><br>
+        <form id="profile" action="/profile" method="POST">
+            <label style="margin-right: 2px;">
+                Username:
+                <input name="user" value="{{ user }}" style="width: 250px;">
+            </label><br><br>
+            <label>
+                Password:
+                <input name="pw" value="{{ pw }}" style="width: 250px;">
+            </label>
+            <br><br>
+            <label style="margin-left: 170px;">
+                Email:
+                <input name="email" value="{{ email }}" style="width: 250px;">
+            </label><br><br>
+            <button id="enter" onclick="window.location.reload()" style="margin-top: 10px;">Save</button>
+            <input type="hidden" name="id" value="2">
+        </form>
+        <br><br>
+        <p class="new-column"><strong>Profile Stats:</strong></p><br><br>
+        <p>Crimes Committed: <span id="span1">0</span>
+        </p>
+        <p>Crimes Liked: <span id="span2">0</span>
+        </p>
+        <p>Comments: <span id="span3">0</span>
+        </p>
+    </div>
+    <form id="profile1" action="/profile" method="POST">
+        <button>Log Out</button>
+        <input type="hidden" name="id" value="1">
+    </form>
+</body>
+
+<script id="data-post" type="application/json">
+    {{ post | tojson | safe }}
+</script>
+<script id="data-like" type="application/json">
+    {{ like | tojson | safe }}
+</script>
+<script id="data-comm" type="application/json">
+    {{ comm | tojson | safe }}
+</script>
+<script>
+    const post = JSON.parse(document.getElementById("data-post").textContent);
+    const like = JSON.parse(document.getElementById("data-like").textContent);
+    const comm = JSON.parse(document.getElementById("data-comm").textContent);
+    const span1 = document.getElementById("span1");
+    const span2 = document.getElementById("span2");
+    const span3 = document.getElementById("span3");
+
+    let count = 0;
+    for (let i = 0; i < post.length; i++) {
+        if (post[i][1] === "{{ user }}") {
+            count += 1;
+        }
+    }
+    span1.textContent = count;
+    for (let i = 0; i < like.length; i++) {
+        if (like[i][2] === "{{ user }}") {
+            count += 1;
+        }
+    }
+    span2.textContent = count;
+    for (let i = 0; i < comm.length; i++) {
+        if (comm[i][2] === "{{ user }}") {
+            count += 1;
+        }
+    }
+    span3.textContent = count;
+</script>
+
+</html>

@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" href="..\..\static\css\style.css" />
+    <link rel="icon" type="image/x-icon" href="..\static\images\favicon.png" />
+    <title>confessions.com - Search Crimes</title>
+    <nav>
+        <ul>
+            <li><a href="top_crimes">Top Crimes</a></li>
+            <li class="selected">Search Crimes</li>
+            <li><a href="submit_crimes">Submit Crimes</a></li>
+            <li><a href="profile">Your Profile</a></li>
+            <li><a><img src="..\static\images\logo.png" alt="logo" class="logo"></a></li>
+        </ul>
+    </nav>
+</head>
+
+<body>
+    <h1 class="tc">Search Crimes</h1><br>
+    <h4 class="tc">Search for a crime by title or username!<br>(Click on a crime to read it)</h4><br><br>
+    <input id="search" placeholder="Search here..." oninput="generateData()">
+    <select class="sort" id="sort" name="sort" onchange="generateData()">
+        <option value="title">Title</option>
+        <option value="username">Username</option>
+    </select>
+    <ul id="crimelist"></ul>
+    <script id="data-view1" type="application/json">
+        {{ view | tojson | safe }}
+    </script>
+    <script>
+        const ol = document.getElementById("crimelist");
+        const dropdown = document.getElementById("sort");
+        const view1 = JSON.parse(document.getElementById("data-view1").textContent);
+
+        function generateData() {
+            let i1 = 0;
+            ol.innerHTML = '';
+            for (let i = 0; i < view1.length; i++) {
+                if (dropdown.value === 'title') {
+                    if (view1[i][2].toLowerCase().includes(search.value.toLowerCase())) {
+                        const li = document.createElement("li");
+                        li.classList.add("crime");
+                        li.dataset.crime = view1[i][2];
+                        ol.appendChild(li);
+                        const br = document.createElement("br");
+                        const br2 = document.createElement("br");
+                        ol.appendChild(br);
+                        ol.appendChild(br2);
+                        li.innerHTML = `<strong>` + `${view1[i][2]} - ${view1[i][1]} - (${view1[i][5].replace('\n', '<br>')})</strong><br>👁&nbsp;${view1[i][6]}&nbsp;👍&nbsp;${view1[i][7]}<br><br>${view1[i][3]}`;
+                        i1 += 1;
+                    }
+                } else {
+                    if (view1[i][1].toLowerCase().includes(search.value.toLowerCase())) {
+                        const li = document.createElement("li");
+                        li.classList.add("crime");
+                        li.dataset.crime = view1[i][2];
+                        ol.appendChild(li);
+                        const br = document.createElement("br");
+                        const br2 = document.createElement("br");
+                        ol.appendChild(br);
+                        ol.appendChild(br2);
+                        li.innerHTML = `<strong>` + `${view1[i][2]} - ${view1[i][1]} - (${view1[i][5].replace('\n', '<br>')})</strong><br>👁&nbsp;${view1[i][6]}&nbsp;👍&nbsp;${view1[i][7]}<br><br>${view1[i][3]}`;
+                        i1 += 1;
+                    }
+                }
+            }
+        }
+        ol.addEventListener("click", async (event) => {
+            if (event.target !== ol) {
+                const crime = "{{ crime }}"
+                const c = event.target.dataset.crime;
+                console.log(c);
+                await fetch("/set_session_crime", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ c })
+                });
+                window.location.href = "crime";
+            }
+        });
+
+
+
+
+        // for (let i = 0; i < 50; i++) {
+        // const list = document.getElementsByClassName("crime");
+        // if (1 === 1) {
+        //list[i].innerHTML = `<strong>#` + (i + 1) + ` - ${view1[i][2]} - ${view1[i][1]}</strong><br>👁&nbsp;${view1[i][6]}&nbsp;👍&nbsp;${view1[i][7]}<br><br>${view1[i][3]}`;
+        // }
+        // }
+
+    </script>
+</body>
+
+</html>

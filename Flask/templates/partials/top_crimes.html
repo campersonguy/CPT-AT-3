@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="stylesheet" href="..\..\static\css\style.css" />
+    <link rel="icon" type="image/x-icon" href="..\static\images\favicon.png" />
+    <title>confessions.com - Top Crimes</title>
+    <nav>
+        <ul>
+            <li class="selected">Top Crimes</li>
+            <li><a href="search_crimes">Search Crimes</a></li>
+            <li><a href="submit_crimes">Submit Crimes</a></li>
+            <li><a href="profile">Your Profile</a></li>
+            <li><a><img src="..\static\images\logo.png" alt="logo" class="logo"></a></li>
+        </ul>
+    </nav>
+</head>
+
+<body>
+    <h1 class="tc">Top Crimes</h1><br>
+    <h4 class="tc">Read up on the 50 most viewed/liked crimes!<br>(Click on a crime to read it)</h4><br>
+    <label for="sort">Sort by: </label>
+    <select class="sort" id="sort" name="sort" onchange="handleDropdownChange()">
+        <option value="views">Views</option>
+        <option value="likes">Likes</option>
+    </select><br><br>
+    <ul id="crimelist"></ul>
+    <script id="data-view1" type="application/json">
+            {{ view1 | tojson | safe }}
+        </script>
+    <script id="data-view2" type="application/json">
+            {{ view2 | tojson | safe }}
+        </script>
+    <script>
+        const ol = document.getElementById("crimelist");
+        const dropdown = document.getElementById("sort");
+        const sort1 = JSON.parse(document.getElementById("data-view1").textContent);
+        const sort2 = JSON.parse(document.getElementById("data-view2").textContent);
+
+        for (let i = 0; i < 50 && i < sort1.length; i++) {
+            const li = document.createElement("li");
+            li.classList.add("crime");
+            li.innerHTML = `<strong>#` + (i + 1) + ` - ${sort1[i][2]} - ${sort1[i][1]} - (${sort1[i][5].replace('\n', '<br>')})</strong><br>👁&nbsp;${sort1[i][6]}&nbsp;👍&nbsp;${sort1[i][7]}<br><br>${sort1[i][4]}`;
+            li.dataset.crime = sort1[i][2];
+            ol.appendChild(li);
+            const br = document.createElement("br");
+            const br2 = document.createElement("br");
+            ol.appendChild(br);
+            ol.appendChild(br2);
+        }
+
+        function handleDropdownChange() {
+            for (let i = 0; i < 50 && i < sort1.length; i++) {
+                const list = document.getElementsByClassName("crime");
+                if (dropdown.value === "views") {
+                    list[i].innerHTML = `<strong>#` + (i + 1) + ` - ${sort1[i][2]} - ${sort1[i][1]} - (${sort1[i][5].replace('\n', '<br>')})</strong><br>👁&nbsp;${sort1[i][6]}&nbsp;👍&nbsp;${sort1[i][7]}`;
+                    list[i].dataset.crime = sort1[i][2];
+                } else if (dropdown.value === "likes") {
+                    list[i].innerHTML = `<strong>#` + (i + 1) + ` - ${sort2[i][2]} - ${sort2[i][1]} - (${sort2[i][5].replace('\n', '<br>')})</strong><br>👁&nbsp;${sort2[i][6]}&nbsp;👍&nbsp;${sort2[i][7]}`;
+                    list[i].dataset.crime = sort2[i][2];
+                }
+            }
+        }
+
+        ol.addEventListener("click", async (event) => {
+            if (event.target !== ol && event.target.dataset.crime !== undefined) {
+                const crime = "{{ crime }}"
+                const c = event.target.dataset.crime;
+                console.log(c);
+                await fetch("/set_session_crime", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ c })
+                });
+                window.location.href = "crime";
+            }
+        });
+    </script>
+</body>
+
+</html>

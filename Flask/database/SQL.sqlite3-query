@@ -1,0 +1,198 @@
+-- database: data_source.db
+-- stuff for adding things to the table
+-- test values (old)
+SELECT
+    current_database ();
+
+DROP TABLE commentData;
+
+CREATE TABLE
+    userData (
+        userID INTEGER NOT NULL PRIMARY KEY,
+        username TEXT NOT NULL,
+        email TEXT NOT NULL,
+        password TEXT NOT NULL,
+        logintime CURRENT_TIMESTAMP
+    );
+
+CREATE TABLE
+    commentData (
+        postID INTEGER NOT NULL,
+        username TEXT NOT NULL,
+        comm TEXT NOT NULL,
+        commTime CURRENT_TIMESTAMP
+    );
+
+CREATE TABLE
+    likeData (
+        id INTEGER NOT NULL PRIMARY KEY,
+        username TEXT NOT NULL,
+        postID INTEGER NOT NULL
+    );
+
+INSERT INTO
+    commentData (postID, username, comm)
+VALUES
+    ('1', 'campersonguy', '10/10 would recommend');
+
+SELECT
+    *
+FROM
+    commentData;
+
+INSERT INTO
+    userData (username, email, password)
+VALUES
+    (
+        'adamcolon',
+        'adam.colon@gmail.com',
+        'aoisf83F*hfC'
+    ),
+    (
+        'JOHN MANTLE',
+        'john.mantle@gmail.com',
+        'cUhuchIhaCLi'
+    ),
+    ('brt', 'brt@gmail.com', '(w#fh(hHC931HC'),
+    (
+        'Jilm Wilson',
+        'jilm.wilson@gmail.com',
+        '1234567890'
+    ),
+    (
+        'Gordy',
+        'gordon.zhao@gmail.com',
+        'eucaihiceahf38'
+    ),
+    (
+        'schlorpwigglermang',
+        'schlorpwigglermang@gmail.com',
+        'qwertyuiop'
+    ),
+    (
+        'Person who has pneumonoultramicroscopicsilicovolcanoconiosis',
+        'yes@gmail.com',
+        'zxcvbnm'
+    ),
+    ('asdfghjkl', 'asdfghjkl', 'asdfghjkl'),
+    (
+        'Hugo Newman',
+        'hugo.newman@gmail.com',
+        'wonkerbonker'
+    ),
+    (
+        'Sans Undertale',
+        'sans@gmail.com',
+        'sanstheskeleton'
+    ),
+    (
+        'Sans Deltarune',
+        'snas@gmail.com',
+        'snastheskeleton'
+    );
+
+DELETE FROM userData;
+
+DROP TABLE userData;
+
+-- postData table
+CREATE TABLE
+    postData (
+        postID INTEGER NOT NULL PRIMARY KEY,
+        username TEXT NOT NULL,
+        post TEXT NOT NULL,
+        postTime
+    );
+
+INSERT INTO
+    postData (username, post, postTime)
+VALUES
+    (
+        'adamcolon',
+        'I killed 37 children',
+        current_timestamp
+    );
+
+DELETE FROM postData;
+
+DROP TABLE postData;
+
+-- SQL Queries
+-- Select the data from a specific user
+SELECT
+    *
+FROM
+    userData
+WHERE
+    username = 'iroebyp';
+
+-- Sort by the 100 most recently created users (doesn't work as date data is formatted DD/MM/YY instead of YY/MM/DD)
+SELECT
+    *
+FROM
+    userData
+ORDER BY
+    creationdate DESC
+LIMIT
+    100;
+
+-- Sort the top 50 most liked or viewed posts
+SELECT
+    *
+FROM
+    postData
+ORDER BY
+    likes DESC
+LIMIT
+    50;
+
+SELECT
+    *
+FROM
+    postData
+ORDER BY
+    views DESC
+LIMIT
+    50;
+
+-- Sort by posts in the last week
+SELECT
+    *
+FROM
+    postData
+WHERE
+    DATE(postTime) > '2025-08-14'
+ORDER BY
+    postTime DESC;
+
+DELETE FROM userData
+WHERE
+    id > 1001;
+
+DELETE FROM postData
+WHERE
+    postId > 1001;
+
+ALTER TABLE postData
+ADD COLUMN backup_views INTEGER;
+
+ALTER TABLE postData
+ADD COLUMN backup_views INTEGER;
+
+UPDATE postData
+SET
+    backup_views = views;
+
+UPDATE userData
+SET
+    user = 'campersongu',
+    pw = 'g'
+WHERE
+    user = 'campersonguy';
+
+CREATE TABLE
+    likes AS
+SELECT
+    *
+FROM
+    commentData
