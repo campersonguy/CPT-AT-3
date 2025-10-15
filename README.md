@@ -800,8 +800,282 @@ def insertPost(user, title, post, postTime, public, views, likes):
 
 **27/9/25 - 13/9/25 - Final Additions**
 
-- Adding sessions (login rework)
-- Individual crime pages
-- Profile page
-- Liking and viewing crimes
-- Oversights (changing username and pw in profile, etc.)
+- Firstly, I needed to rework my login system so that it would use sessions that would better suit how the website was setup. The previous design I used would check in JavaScript for the correct logins, but in order to transmit that data to other pages I would need to use session IDs. To fix this, I would have to use a form (similarly to `submit_crimes`) to compare the inputted data with the existing logins in the database.
+
+```
+@app.route("/login", methods=["GET", "POST"])
+def login():
+    if request.method == "POST":
+        user = request.form["user"]
+        pw = request.form["pw"]
+        userlist = get_user(user) or {}
+        if user in userlist and userlist["pw"] == pw:
+            session["user"] = user
+            session["id"] = userlist[0]
+            session["pw"] = pw
+            session["email"] = userlist[3]
+            return redirect(url_for("topcrimes"))
+        else:
+            return redirect(url_for("login"))
+    else:
+        data = dbHandler.listUserData()
+        return render_template("partials/login.html", content=data)
+```
+
+- This code compares the user and password with ones from the database, which either reloads the page if it's wrong or redirects to `top_crimes` if it's valid. It also sets the session variables properly if they need to be used within other pages.
+
+- The next thing I wanted to fix were the crimes. I wanted each crime to have its own page so you could comment, view and like them, and for that I reworked crimes to have a description that would show up and you could click to read the full story. For this, I attached this script to my `top_crimes` page:
+
+```
+ol.addEventListener("click", async (event) => {
+    if (event.target !== ol && event.target.dataset.crime !== undefined) {
+        const crime = "{{ crime }}"
+        const c = event.target.dataset.crime;
+        await fetch("/set_session_crime", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ c })
+        });
+        window.location.href = "crime";
+    }
+});
+```
+
+- This detects when an element of the crime list is clicked and redirects you to a separate page for it. The `/set_session_crime` line sets some important session variables and the JS redirects you, so that the page can load with correct information. The `crime` code in `main.py` looks like this:
+
+```
+@app.route("/crime", methods=["POST", "GET"])
+def crimepg():
+    if "user" in session:
+        crime = session.get("crime")
+        dbHandler.updateView(crime["c"])
+        user = session.get("user")
+        crime = session.get("crime")
+        crime1 = crime["c"]
+        id = get_id(crime1)
+        liked = check_likes(user, id)
+        data = dbHandler.listPostData1(id)
+        comm = dbHandler.listCommData()
+        liked = check_likes(user, id)
+        commdata = dbHandler.listCommData()
+        data = dbHandler.listPostData()
+        if request.method == "POST":
+            if request.form["comm"]:
+                postID = request.form["postid"]
+                comm = request.form["comm"]
+                time = datetime.now().strftime("%d/%m/%y, %I:%M %p")
+                if session.get("user"):
+                    user = session.get("user")
+                    dbHandler.insertComment(postID, user, comm, time)
+                return redirect("/crime")
+        else:
+            return render_template(
+                "partials/crime.html",
+                user=session["user"],
+                crime=crime,
+                data=data,
+                commdata=commdata,
+                liked=liked,
+            )
+    else:
+        return redirect(url_for("profile2"))
+```
+
+- This code sends lots of information to the page based on the crime selected previously, as well as some user-based variables for adding the comments. The page then uses this info to load the correct crime, with the right user, time of post (which was also added around this time), description, story and comments. The like icon changes depending on whether or not the user has liked the post (which was added later).
+
+- The comment form also works with this code, and adds the comment into the database. When loading the page, the frontend checks for comments with the same `postID` as the one being viewed and only displays those ones. Using `window.location.reload()`, the page can reload instantly and display the comment without the user having to automatically reload.
+
+- The code for the crime page can be seen here:
+
+```
+document.addEventListener("DOMContentLoaded", () => {
+    for (let i = 0; i < data.length; i++) {
+        if (data[i][2] === crime.c) {
+            c1.innerHTML = `<strong> ${data[i][2]} - ${data[i][1]} - (${data[i][5].replace
+            ('\n', '<br>')})</strong><br>👁&nbsp;${data[i][6]}&nbsp;`;
+            if (liked === false) {
+                c2.innerHTML = `👍🏻`;
+            } else {
+                c2.innerHTML = `👍`;
+            }
+            c3.innerHTML = `&nbsp;${data[i][7]}`;
+            p2.innerHTML = `${data[i][3].replace('\n', '<br>')}`;
+            i1.value = data[i][0];
+            for (let i1 = 0; i1 < comm.length; i1++) {
+                if (comm[i1][1] === data[i][0]) {
+                    const br = document.createElement("br");
+                    div.appendChild(br);
+                    const p = document.createElement("p");
+                    div.appendChild(p);
+                    p.classList.add("crime");
+                    p.innerHTML = `<strong>${comm[i1][2]} (${comm[i1][4]})</strong><br>
+                    ${comm[i1][3].replace('\n', '<br>')}`;
+                }
+            }
+        }
+    }
+});
+```
+
+- I also added a profile page for the user to change their profile settings and display statistics. This page contained a form that would save the changes made, however it didn't account for bypassing initial restrictions on usernames and passwords. There was also a separate form for logging out the user, so I used hidden ID values for each form to differentiate them in `main.py`.
+
+```
+@app.route("/profile", methods=["POST", "GET"])
+def profile():
+    post = dbHandler.listPostData()
+    comm = dbHandler.listCommData()
+    like = dbHandler.listLikeData()
+    if "user" in session:
+        if request.method == "POST":
+            id = request.form["id"]
+            if id == "1":
+                session["user"] = None
+                session["pw"] = None
+                session["email"] = None
+                session["id"] = None
+                return redirect(url_for("homepage"))
+            if id == "2":
+                new_user = request.form["user"]
+                new_pw = request.form["pw"]
+                new_email = request.form["email"]
+                old_user = session["user"]
+                dbHandler.changeUser(new_user, new_pw, new_email, old_user)
+                session["user"] = new_user
+                session["pw"] = new_pw
+                return render_template(
+                    "partials/profile.html",
+                    user=session["user"],
+                    pw=session["pw"],
+                    email=session["email"],
+                    post=post,
+                    comm=comm,
+                    like=like,
+                )
+        else:
+            return render_template(
+                "partials/profile.html",
+                user=session["user"],
+                pw=session["pw"],
+                email=session["email"],
+                post=post,
+                comm=comm,
+                like=like,
+            )
+    else:
+        return render_template(
+            "partials/profile2.html",
+        )
+```
+
+- The last thing I wanted to add was to make the views and like counts work. The views were relatively easy, as I just made it increment by one when the page was loaded.
+
+```
+def updateView(crime):
+    with sql.connect("database/data_source.db") as con:
+        cur = con.cursor()
+        cur.execute(
+            "UPDATE postData SET views = views + 1 WHERE title = ?",
+            (crime,),
+        )
+        con.commit()
+```
+- However, making likes work properly is very, very painful. In order for it to work, the system needs ot detect if the user has already liked the post (in which case it should be removed) or add a like if the user has not liked it. Visibility-wise, the like icon would change depending on if the post was liked.
+
+```
+c2.addEventListener("click", async (event) => {
+    if (c2.innerHTML = `👍`) {
+        c2.innerHTML = `👍🏻`;
+    } else {
+        c2.innerHTML = `👍`;
+    }
+    fetch("/like", {
+        method: "POST"
+    });
+    window.location.reload();
+});
+```
+
+- In `main.py`, I wrote some scripts to add or remove the like. I created a new SQL table to store the like data, in which each would have a postID that it would be attached to.
+
+```
+@app.route("/like", methods=["POST"])
+def like():
+    if request.method == "POST":
+        crime = session["crime"]
+        crime1 = crime["c"]
+        id = get_id(crime1)
+        user = session["user"]
+        liked = check_likes(user, id)
+        print("Liked: ", liked)
+        if not liked:
+            dbHandler.addLike(user, id)
+            count = get_count(id)
+            dbHandler.updateLikes(count, id)
+            return redirect(url_for("crimepg"))
+        if liked:
+            dbHandler.removeLike(user, id)
+            count = get_count(id)
+            dbHandler.updateLikes(count, id)
+            return redirect(url_for("crimepg"))
+```
+
+```
+def addLike(user, id):
+    with sql.connect("database/data_source.db") as con:
+        cur = con.cursor()
+        cur.execute("INSERT INTO likeData (user, postID) VALUES (?,?)", (user, id))
+        con.commit()
+
+
+def removeLike(user, id):
+    with sql.connect("database/data_source.db") as con:
+        cur = con.cursor()
+        cur.execute("DELETE FROM likeData WHERE user = ? AND postID = ?", (user, id))
+        con.commit()
+
+
+def updateLikes(count, id):
+    with sql.connect("database/data_source.db") as con:
+        cur = con.cursor()
+        cur.execute("UPDATE postData SET likes = ? WHERE postID = ?", (count, id))
+        con.commit()
+```
+
+- While this updates correctly in the backend, the only issue is that the frontend doesn't always update dynamically. This was the main issue with the final product that I had, as I wasn't able to fix it.
+
+- The last thing I did was get ChatGPT to generate some crimes that I could manually add to the database to replace the mock data that was entirely in Latin. I generated around 60 crimes to add, however I was able to make it generate them to be added as an SQL command.
+
+**15/10/25 - Client Testing**
+
+- For the client testing, I had Zac test my website for bugs. The only issues he found was the aforementioned like bug, as well as bypassing the username and password restrictions through the profile page. However, everything else worked as expected and he was able to comment, view, search for and create crimes effectively.
+
+- The only remaining issues were:
+
+1. The like button would sometimes not update visually when it was clicked. it would add to the database properly, but wouldn't update on the frontend sometimes unless the page was reloaded.
+2. The profile stats would break if you changed your username, as it counted based on how many likes/posts/comments were under a certain username rather than the user's ID.
+3. You can bypass the initial naming restrictions on usrenames and passwords in the profile menu.
+4. Some of the positioning of elements breaks when a different screen size is used, as many elements use margins to be positioned. The website is mainly designed around the screen size that I use.
+
+- However, most of them are minimal and don't break the website if used.
+
+**Lighthouse Testing Final Scores**
+
+- Homepage: 100
+- Login: 94
+- Signup: 98
+- Top Crimes: 88
+- Search Crimes: 98
+- Submit Crimes: 98
+- Your Profile: 99
+- Crime page: 92
+
+**Final Product**
+
+![home](homepage.png)
+![login](login.png)
+![signup](signup.png)
+![topcrimes](topcrimes.png)
+![searchcrimes](search_crimes.png)
+![submitcrimes](submit_crimes.png)
+![profile](profile.png)
+![crimepage](crimepage.png)
