@@ -685,7 +685,7 @@ def insertContact(user, pw, email, creationdate):
 
 - The last few pages I needed to add were `search_crimes`, `submit_crimes`, `about_us` and `leaderboard`[^1].
 
-[^1]: Leaderboard didn't really fit the design of the website, since it was designed around how many crimes someone posted which could easily be cheesed by spamming. Considering the website was mainly focused on posting, sharing and following, I reworked Leaderboard to the users with the most followers.
+[^1]: Leaderboard didn't really fit the design of the website, since it was designed around how many crimes someone posted which could easily be cheesed by spamming. This was a page I ended up scrapping, mainly because it didn't fit and I didn't have time to add it.
 
 - Starting with `search_crimes`, the main thing I needed to implement was a 'searching' function, as other than that it was very similar to `top_crimes`. The best way to do this is to only generate values from the database that contain the search input. Both values are attached to `.toLowerCase()` to prevent capitalisation affecting the values.
 
