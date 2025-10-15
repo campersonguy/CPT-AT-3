@@ -621,6 +621,8 @@ list[i].innerHTML = `<strong>#` + (i + 1) + ` - ${sort2[i][2]} - ${sort2[i][1]}<
 
 ![topcrimes](topcrimes.png)
 
+## **Weeks 9 and 10 - Adding Interactivity**
+
 **17/9/25 - 19/9/25 - Adding Data to the Backend & Lighthouse Testing**
 
 - Next, I needed to learn how to add data to the backend through the `signup` page. At the time, the `signup` page would only detect if your inputs met the conditions, but wouldn't actually add the data to the backend. To add data, I needed to nest the `signup` inputs inside a `<form>`, as the following:
@@ -800,7 +802,9 @@ def insertPost(user, title, post, postTime, public, views, likes):
 
 - For `about_me`, I added a short description of the website's history (yapping about how confessions.com started from the New Social Media Presentation from the end of Year 9), since that page didn't need too much interactivity since it was just a text description of the website.
 
-**27/9/25 - 13/9/25 - Final Additions**
+## **School Holidays & Week 1 - Final Additions & Client Handover**
+
+**27/9/25 - 13/9/25 - Finishing Touches**
 
 - Firstly, I needed to rework my login system so that it would use sessions that would better suit how the website was setup. The previous design I used would check in JavaScript for the correct logins, but in order to transmit that data to other pages I would need to use session IDs. To fix this, I would have to use a form (similarly to `submit_crimes`) to compare the inputted data with the existing logins in the database.
 
@@ -1060,6 +1064,8 @@ def updateLikes(count, id):
 
 - However, most of them are minimal and don't break the website if used.
 
+## **Final Product**
+
 **Lighthouse Testing Final Scores**
 
 - Homepage: 100
@@ -1071,7 +1077,7 @@ def updateLikes(count, id):
 - Your Profile: 99
 - Crime page: 92
 
-**Final Product**
+**Screenshots of Final Pages**
 
 ![home](homepage.png)
 ![login](login.png)
