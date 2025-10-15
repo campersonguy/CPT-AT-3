@@ -1051,7 +1051,7 @@ def updateLikes(count, id):
 
 - For the client testing, I had Zac test my website for bugs. The only issues he found was the aforementioned like bug, as well as bypassing the username and password restrictions through the profile page. However, everything else worked as expected and he was able to comment, view, search for and create crimes effectively.
 
-- The only remaining issues were:
+- The only remaining bugs were:
 
 1. The like button would sometimes not update visually when it was clicked. it would add to the database properly, but wouldn't update on the frontend sometimes unless the page was reloaded.
 2. The profile stats would break if you changed your username, as it counted based on how many likes/posts/comments were under a certain username rather than the user's ID.
@@ -1081,3 +1081,26 @@ def updateLikes(count, id):
 ![submitcrimes](submit_crimes.png)
 ![profile](profile.png)
 ![crimepage](crimepage.png)
+
+**Instructions for Use**
+
+1. Download the ZIP file and open in VSCode.
+2. In the terminal (Ctrl + `), open the Git Bash terminal window.
+3. Run `cd Flask`, then run `python main.py`.
+4. Copy the IP address that the server is running on and paste it into a web browser.
+
+- When using the site, you can either create an account using the signup page or log in with an existing account (you can use Username: test, Password: test for a testing account)
+
+**Credits**
+
+[Markdown Basic Syntax](https://www.markdownguide.org/basic-syntax/)
+[Markdown Extended Syntax](https://www.markdownguide.org/extended-syntax/)
+
+[W3Schools HTML Tutorial](https://www.w3schools.com/html/default.asp)
+[W3Schools SQL Tutorial](https://www.w3schools.com/sql/)
+
+[Grok Express HTML/CSS](https://groklearning.com/course/intro-html-css-starter/)
+[Grok JavaScript Course](https://groklearning.com/course/intro-js-1/)
+
+Mr Clark for the very useful Setup and Final Steps documents
+(for setting up a Flask envornment and service workers)
