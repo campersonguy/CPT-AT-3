@@ -92,7 +92,10 @@ def submitcrimes():
         dbHandler.insertPost(user, title, post, desc, postDate, views, likes)
         return redirect(url_for("topcrimes"))
     else:
-        return render_template("partials/submit_crimes.html", user=session["user"])
+        if "user" in session:
+            return render_template("partials/submit_crimes.html", user=session["user"])
+        else:
+            return render_template("partials/submit_crimes.html")
 
 
 @app.route("/leaderboard")
@@ -110,7 +113,7 @@ def profile():
     post = dbHandler.listPostData()
     comm = dbHandler.listCommData()
     like = dbHandler.listLikeData()
-    if session.get("user"):
+    if "user" in session:
         if request.method == "POST":
             id = request.form["id"]
             if id == "1":
@@ -149,58 +152,49 @@ def profile():
     else:
         return render_template(
             "partials/profile2.html",
-            user=session["user"],
-            pw=session["pw"],
-            email=session["email"],
-            post=post,
-            comm=comm,
-            like=like,
         )
 
 
 @app.route("/profile2")
 def profile2():
-    return render_template(
-        "partials/profile2.html",
-        user=session["user"],
-        pw=session["pw"],
-        email=session["email"],
-    )
+    return render_template("partials/profile2.html")
 
 
 @app.route("/crime", methods=["POST", "GET"])
 def crimepg():
-    crime = session.get("crime")
-    dbHandler.updateView(crime["c"])
-    user = session.get("user")
-    crime = session.get("crime")
-    crime1 = crime["c"]
-    id = get_id(crime1)
-    liked = check_likes(user, id)
-    data = dbHandler.listPostData1(id)
-    comm = dbHandler.listCommData()
-    liked = check_likes(user, id)
-    commdata = dbHandler.listCommData()
-    data = dbHandler.listPostData()
-    if request.method == "POST":
-        if request.form["comm"]:
-            postID = request.form["postid"]
-            comm = request.form["comm"]
-            time = datetime.now().strftime("%d/%m/%y, %I:%M %p")
-            if session.get("user"):
-                user = session.get("user")
-                dbHandler.insertComment(postID, user, comm, time)
-            return redirect("/crime")
-
+    if "user" in session:
+        crime = session.get("crime")
+        dbHandler.updateView(crime["c"])
+        user = session.get("user")
+        crime = session.get("crime")
+        crime1 = crime["c"]
+        id = get_id(crime1)
+        liked = check_likes(user, id)
+        data = dbHandler.listPostData1(id)
+        comm = dbHandler.listCommData()
+        liked = check_likes(user, id)
+        commdata = dbHandler.listCommData()
+        data = dbHandler.listPostData()
+        if request.method == "POST":
+            if request.form["comm"]:
+                postID = request.form["postid"]
+                comm = request.form["comm"]
+                time = datetime.now().strftime("%d/%m/%y, %I:%M %p")
+                if session.get("user"):
+                    user = session.get("user")
+                    dbHandler.insertComment(postID, user, comm, time)
+                return redirect("/crime")
+        else:
+            return render_template(
+                "partials/crime.html",
+                user=session["user"],
+                crime=crime,
+                data=data,
+                commdata=commdata,
+                liked=liked,
+            )
     else:
-        return render_template(
-            "partials/crime.html",
-            user=session["user"],
-            crime=crime,
-            data=data,
-            commdata=commdata,
-            liked=liked,
-        )
+        return redirect(url_for("profile2"))
 
 
 def get_user(user):
