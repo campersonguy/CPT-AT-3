@@ -161,6 +161,8 @@ matchverificationcode
 
 ![flowchart](flowchart.png)
 
+ - (Does not contain the verification code steps as those were something I forgot about at the time)
+
 ### **Test Cases**
 
 **Test Case ID:** AD-001
