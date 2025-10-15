@@ -53,10 +53,10 @@
             for (let i = 0; i < 50 && i < sort1.length; i++) {
                 const list = document.getElementsByClassName("crime");
                 if (dropdown.value === "views") {
-                    list[i].innerHTML = `<strong>#` + (i + 1) + ` - ${sort1[i][2]} - ${sort1[i][1]} - (${sort1[i][5].replace('\n', '<br>')})</strong><br>👁&nbsp;${sort1[i][6]}&nbsp;👍&nbsp;${sort1[i][7]}`;
+                    list[i].innerHTML = `<strong>#` + (i + 1) + ` - ${sort1[i][2]} - ${sort1[i][1]} - (${sort1[i][5].replace('\n', '<br>')})</strong><br>👁&nbsp;${sort1[i][6]}&nbsp;👍&nbsp;${sort1[i][7]}<br><br>${sort1[i][4]}`;
                     list[i].dataset.crime = sort1[i][2];
                 } else if (dropdown.value === "likes") {
-                    list[i].innerHTML = `<strong>#` + (i + 1) + ` - ${sort2[i][2]} - ${sort2[i][1]} - (${sort2[i][5].replace('\n', '<br>')})</strong><br>👁&nbsp;${sort2[i][6]}&nbsp;👍&nbsp;${sort2[i][7]}`;
+                    list[i].innerHTML = `<strong>#` + (i + 1) + ` - ${sort2[i][2]} - ${sort2[i][1]} - (${sort2[i][5].replace('\n', '<br>')})</strong><br>👁&nbsp;${sort2[i][6]}&nbsp;👍&nbsp;${sort2[i][7]}<br><br>${sort2[i][4]}`;
                     list[i].dataset.crime = sort2[i][2];
                 }
             }
