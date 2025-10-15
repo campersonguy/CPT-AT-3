@@ -1084,8 +1084,8 @@ def updateLikes(count, id):
 
 **Instructions for Use**
 
-1. Download the ZIP file and open in VSCode.
-2. In the terminal (Ctrl + `), open the Git Bash terminal window.
+1. Download the ZIP file and open the file `CPT-AT-3` in VSCode.
+2. Press Ctrl + `, then open the Git Bash terminal window.
 3. Run `cd Flask`, then run `python main.py`.
 4. Copy the IP address that the server is running on and paste it into a web browser.
 
@@ -1093,14 +1093,13 @@ def updateLikes(count, id):
 
 **Credits**
 
-[Markdown Basic Syntax](https://www.markdownguide.org/basic-syntax/)
-[Markdown Extended Syntax](https://www.markdownguide.org/extended-syntax/)
+- [Markdown Basic Syntax](https://www.markdownguide.org/basic-syntax/)
+- [Markdown Extended Syntax](https://www.markdownguide.org/extended-syntax/)
 
-[W3Schools HTML Tutorial](https://www.w3schools.com/html/default.asp)
-[W3Schools SQL Tutorial](https://www.w3schools.com/sql/)
+- [W3Schools HTML Tutorial](https://www.w3schools.com/html/default.asp)
+- [W3Schools SQL Tutorial](https://www.w3schools.com/sql/)
 
-[Grok Express HTML/CSS](https://groklearning.com/course/intro-html-css-starter/)
-[Grok JavaScript Course](https://groklearning.com/course/intro-js-1/)
+- [Grok Express HTML/CSS](https://groklearning.com/course/intro-html-css-starter/)
+- [Grok JavaScript Course](https://groklearning.com/course/intro-js-1/)
 
-Mr Clark for the very useful Setup and Final Steps documents
-(for setting up a Flask envornment and service workers)
+- Mr Clark for the very useful Setup and Final Steps documents (for setting up a Flask envornment and service workers)
